@@ -1,27 +1,25 @@
-" 让配置变更立即生效
-" autocmd BufWritePost $MYVIMRC source $MYVIMRC
+func! SetGui()
+    set encoding=utf8
+    set fileencoding=chinese
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    set guifont=dejavu_sans_mono:h13
+    set lines=30 columns=100
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=e
+    set pythonthreedll=python36.dll
+endfunc
+if has('gui_running')
+    call SetGui()
+endif
 
-" VAM
-"set runtimepath+=/path/to/vam
-"let c = get(g:, 'vim_addon_manager', {})
-"let g:vim_addon_manager = c
-"let c.plugin_root_dir = expand('$HOME', 1) . '/.vim/vim-addons'
-"let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
-"" 加载插件
-"call vam#ActivateAddons([
-            "\ 'taglist',
-            "\ 'vim-airline',
-            "\ 'surround',
-            "\ 'molokai',
-            "\ 'jedi-vim',
-            "\])
-
+packadd! molokai
 packadd! tagbar
 packadd! vim-airline
 packadd! vim-surround
-packadd! molokai
 packadd! jedi-vim
-packadd! ycm
+" packadd! ycm
 packadd! fcitx.vim
 packadd! indentLine     " 对齐线"
 packadd! ultisnips      " snippet"
@@ -33,15 +31,24 @@ py3 <<EOF
 import vim
 import os
 
-current_dir = os.getcwd()
-pack_dir = os.path.expanduser('~/.vim/pack/plugins/opt/')
-os.chdir(pack_dir)
-for pack in os.listdir(pack_dir):
-    if os.path.isdir(os.path.join(pack, 'doc')) \
-        and not os.path.isfile(os.path.join(pack, 'doc', "tags")):
-        vim.command('helptags {}'.format(os.path.join(pack, 'doc')))
-os.chdir(current_dir)
+def gen_doc_from_pack_folder(folder):
+    pack_path = os.path.join(folder, 'pack', 'plugins', 'opt')
+    current_dir = os.getcwd()
+    os.chdir(pack_path)
+
+    for pack in os.listdir(pack_path):
+        if os.path.isdir(os.path.join(pack, 'doc')) \
+            and not os.path.isfile(os.path.join(pack, 'doc', "tags")):
+
+            vim.command('helptags {}'.format(os.path.join(pack, 'doc')))
+    os.chdir(current_dir)
+
+packpath_list = vim.eval('&packpath').split(',')
+
+gen_doc_from_pack_folder(packpath_list[0])
 EOF
+
+colorscheme molokai
 
 "自动补全
 filetype plugin indent on
@@ -78,8 +85,6 @@ set completeopt=longest,menu
 set ttimeoutlen=-1 " 退出编辑模式不等待
 
 let g:jedi#popup_on_dot=0
-
-colorscheme molokai
 
 syntax enable " 开启语法高亮功能
 syntax on " 允许用指定语法高亮配色方案替换默认方案
