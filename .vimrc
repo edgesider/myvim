@@ -1,1 +1,169 @@
-/home/kai/.vimrc
+" 让配置变更立即生效
+" autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+" VAM
+"set runtimepath+=/path/to/vam
+"let c = get(g:, 'vim_addon_manager', {})
+"let g:vim_addon_manager = c
+"let c.plugin_root_dir = expand('$HOME', 1) . '/.vim/vim-addons'
+"let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
+"" 加载插件
+"call vam#ActivateAddons([
+            "\ 'taglist',
+            "\ 'vim-airline',
+            "\ 'surround',
+            "\ 'molokai',
+            "\ 'jedi-vim',
+            "\])
+
+packadd! tagbar
+packadd! vim-airline
+packadd! vim-surround
+packadd! molokai
+packadd! jedi-vim
+packadd! ycm
+packadd! fcitx.vim
+packadd! indentLine     " 对齐线"
+packadd! ultisnips      " snippet"
+packadd! vim-snippets   " 常用snippet"
+packadd! delimitMate    " 括号、引号补全"
+packadd! nerdcommenter  " 注释"
+
+py3 <<EOF
+import vim
+import os
+
+current_dir = os.getcwd()
+pack_dir = os.path.expanduser('~/.vim/pack/plugins/opt/')
+os.chdir(pack_dir)
+for pack in os.listdir(pack_dir):
+    if os.path.isdir(os.path.join(pack, 'doc')) \
+        and not os.path.isfile(os.path.join(pack, 'doc', "tags")):
+        vim.command('helptags {}'.format(os.path.join(pack, 'doc')))
+os.chdir(current_dir)
+EOF
+
+"自动补全
+filetype plugin indent on
+set completeopt=preview,menu
+set shell=/bin/bash
+setlocal cm=blowfish2  " 设置加密方式
+set autoread
+set number
+set shiftwidth=4  "操作（<<和>>）时缩进的列数
+set ts=4    "tabstop 一个tab键所占的列数
+set expandtab   "输入tab时自动将其转化为空格
+set nowrap " 禁止折行
+set laststatus=2 " 显示光标当前位置
+set ruler " 开启行号显示
+set number
+set cursorline
+set cursorcolumn " 高亮显示当前行/列
+set hlsearch " 高亮显示搜索结果
+set incsearch " 实时搜索
+set nocompatible " 关闭兼容模式
+set showcmd    " 右下角按键显示
+set autowrite " 自动保存
+set ignorecase  " 忽略大小写
+set updatetime=1  " 保证taglist的更新时间
+set smartindent
+set foldmethod=indent " 折叠方式
+" set foldcolumn=2    " 折叠层次显示
+set foldlevelstart=99
+set colorcolumn=80  " 80个字符处划线
+" set fillchars=vert:\   " 将分割线设置为空格，末尾有空格，需要转义
+set wildmenu wildmode=longest,list " Ex模式下Tab键补全窗口
+set clipboard=unnamed
+set completeopt=longest,menu
+set ttimeoutlen=-1 " 退出编辑模式不等待
+
+let g:jedi#popup_on_dot=0
+
+colorscheme molokai
+
+syntax enable " 开启语法高亮功能
+syntax on " 允许用指定语法高亮配色方案替换默认方案
+
+" 一些键盘映射
+let mapleader=" " "自定义前缀键
+let localleader=" " "自定义前缀键
+nnoremap <silent> <leader>l :nohlsearch<CR>
+
+nmap <C-S> :w<CR>
+nmap <silent> <F5> :call RunOrCompile()<CR>
+
+" 窗口切换
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" buffer切换
+noremap <leader>b :b <TAB>
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+
+" 标签页切换
+nnoremap <silent> [t :tabprevious<CR>
+nnoremap <silent> ]t :tabnext<CR>
+
+" quickfix
+noremap <silent> ]q :cnext<CR>
+noremap <silent> [q :cprevious<CR>
+
+" ycm
+nnoremap <silent> ygd :YcmCompleter GoTo<CR>
+
+nmap <leader>t :TlistToggle<CR>
+" 不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Show_One_File = 1
+" 只剩下taglist窗口时关闭
+let Tlist_Exit_OnlyWindow=1
+
+" 只剩下一个NERDTree窗口时，关闭vim
+" NERDTree窗口放到右边
+" let NERDTreeWinPos=1
+" map <leader>n :NERDTreeToggle<CR>
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" 编译或运行
+func! RunOrCompile()
+    if &filetype == 'c'
+        exec "w"
+        exec "!gcc % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        exec "w"
+        exec "!g++ % -std=c++11 -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'python'
+        exec "w"
+        exec "!time python %"
+    elseif &filetype == 'perl'
+        exec "w"
+        exec "!time perl %"
+    elseif &filetype == 'sh'
+        exec "w"
+        exec "!time bash %"
+    elseif &filetype == 'go'
+        exec "w"
+        exec "!time go run %"
+    endif
+endfunc
+
+let g:jedi#force_py_version = 3
+
+let g:ycm_key_list_select_compeletion = ['<c-n>']
+let g:ycm_key_list_previous_compeletion = ['<c-p>']
+let g:ycm_global_ycm_extra_conf='~/.vim/pack/plugins/opt/ycm/.ycm_extra_conf.py'
+let g:ycm_filetype_whitelist = {
+            \ "c": 1,
+            \ "cpp": 1,
+            \ "objc": 1,
+            \ "sh": 1,
+            \ "js": 1,
+            \}
+
+let g:UltiSnipsExpandTrigger="<c-j>"  " ultisnip snip扩展快捷键"
+let g:UltiSnipsEditSplit="vertical"   " ultisnip 编辑模式横向窗口打开"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
