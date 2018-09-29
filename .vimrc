@@ -19,7 +19,7 @@ packadd! tagbar
 packadd! vim-airline
 packadd! vim-surround
 packadd! jedi-vim
-" packadd! ycm
+packadd! ycm
 packadd! fcitx.vim
 packadd! indentLine     " 对齐线"
 packadd! ultisnips      " snippet"
