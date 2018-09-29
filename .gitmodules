@@ -34,3 +34,6 @@
 [submodule "pack/plugins/opt/vim-airline"]
 	path = pack/plugins/opt/vim-airline
 	url = git://github.com/vim-airline/vim-airline
+[submodule "pack/plugins/opt/vimcdoc"]
+	path = pack/plugins/opt/vimcdoc
+	url = https://github.com/yianwillis/vimcdoc.git
