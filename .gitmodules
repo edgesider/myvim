@@ -7,9 +7,6 @@
 [submodule "pack/plugins/opt/nerdtree"]
 	path = pack/plugins/opt/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "pack/plugins/opt/tagbar"]
-	path = pack/plugins/opt/tagbar
-	url = https://github.com/majutsushi/tagbar
 [submodule "pack/plugins/opt/vim-snippets"]
 	path = pack/plugins/opt/vim-snippets
 	url = https://github.com/honza/vim-snippets
@@ -37,3 +34,6 @@
 [submodule "pack/plugins/opt/vimcdoc"]
 	path = pack/plugins/opt/vimcdoc
 	url = https://github.com/yianwillis/vimcdoc.git
+[submodule "pack/plugins/opt/taglist"]
+	path = pack/plugins/opt/taglist
+	url = https://github.com/vim-scripts/taglist.vim
