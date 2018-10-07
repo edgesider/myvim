@@ -10,12 +10,19 @@ func! SetGui()
     set guioptions-=e
     set pythonthreedll=python36.dll
 endfunc
+
 if has('gui_running')
     call SetGui()
 endif
 
+if has('win32')
+    set shell=c://windows/system32/windowspowershell/v1.0/powershell.exe
+else
+    set shell=/bin/bash
+endif
+
 packadd! molokai
-packadd! tagbar
+"packadd! tagbar
 packadd! vim-airline
 packadd! vim-surround
 packadd! jedi-vim
@@ -53,7 +60,6 @@ colorscheme molokai
 "自动补全
 filetype plugin indent on
 set completeopt=preview,menu
-set shell=/bin/bash
 setlocal cm=blowfish2  " 设置加密方式
 set autoread
 set number
@@ -158,9 +164,14 @@ endfunc
 
 let g:jedi#force_py_version = 3
 
+if has('gui_running')
+    let g:ycm_global_ycm_extra_conf='C:\Users\Administrator\vimfiles\pack\plugins\opt\ycm\.ycm_extra_conf.py'
+else
+    let g:ycm_global_ycm_extra_conf='~/.vim/pack/plugins/opt/ycm/.ycm_extra_conf.py'
+endif
+
 let g:ycm_key_list_select_compeletion = ['<c-n>']
-let g:ycm_key_list_previous_compeletion = ['<c-p>']
-let g:ycm_global_ycm_extra_conf='~/.vim/pack/plugins/opt/ycm/.ycm_extra_conf.py'
+let g:ycm_key_list_previous_compeletion = ['<c-p>'] 
 let g:ycm_filetype_whitelist = {
             \ "c": 1,
             \ "cpp": 1,
