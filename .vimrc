@@ -178,6 +178,7 @@ let g:ycm_filetype_whitelist = {
             \ "objc": 1,
             \ "sh": 1,
             \ "js": 1,
+            \ "go": 1,
             \}
 
 let g:UltiSnipsExpandTrigger="<c-j>"  " ultisnip snip扩展快捷键"
