@@ -34,3 +34,6 @@
 [submodule "pack/plugins/opt/vimcdoc"]
 	path = pack/plugins/opt/vimcdoc
 	url = https://github.com/yianwillis/vimcdoc.git
+[submodule "pack/plugins/opt/vim-go"]
+	path = pack/plugins/opt/vim-go
+	url = https://github.com/fatih/vim-go
