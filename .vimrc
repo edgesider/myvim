@@ -26,13 +26,14 @@ packadd! molokai
 packadd! vim-airline
 packadd! vim-surround
 packadd! jedi-vim
-packadd! ycm
+"packadd! ycm
 packadd! fcitx.vim
 packadd! indentLine     " 对齐线"
 packadd! ultisnips      " snippet"
 packadd! vim-snippets   " 常用snippet"
 packadd! delimitMate    " 括号、引号补全"
 packadd! nerdcommenter  " 注释"
+"packadd! vim-go
 
 py3 <<EOF
 import vim
@@ -125,7 +126,7 @@ noremap <silent> [q :cprevious<CR>
 " ycm
 nnoremap <silent> ygd :YcmCompleter GoTo<CR>
 
-nmap <leader>t :TlistToggle<CR>
+nnoremap <leader>t :TlistToggle<CR>
 " 不同时显示多个文件的tag，只显示当前文件的
 let Tlist_Show_One_File = 1
 " 只剩下taglist窗口时关闭
@@ -178,7 +179,6 @@ let g:ycm_filetype_whitelist = {
             \ "objc": 1,
             \ "sh": 1,
             \ "js": 1,
-            \ "go": 1,
             \}
 
 let g:UltiSnipsExpandTrigger="<c-j>"  " ultisnip snip扩展快捷键"
