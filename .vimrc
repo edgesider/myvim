@@ -1,39 +1,43 @@
-func! SetGui()
-    set encoding=utf8
-    set fileencoding=chinese
+func! SetWin32Gui()
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
-    set guifont=dejavu_sans_mono:h13
+    set encoding=utf8
+    set fileencoding=chinese
     set lines=30 columns=100
     set guioptions-=m
     set guioptions-=T
     set guioptions-=e
+
+    "set guifont=dejavu_sans_mono:h13
+    set guifont=consolas:h14
+    set guifontwide=黑体
     set pythonthreedll=python36.dll
 endfunc
 
-if has('gui_running')
-    call SetGui()
+if has('win32') && has('gui_running')
+    call SetWin32Gui()
 endif
 
-if has('win32')
-    set shell=c://windows/system32/windowspowershell/v1.0/powershell.exe
-else
+if !has('win32')
     set shell=/bin/bash
 endif
 
-packadd! molokai
+"packadd! ycm
 "packadd! tagbar
-packadd! vim-airline
+packadd! molokai
 packadd! vim-surround
 packadd! jedi-vim
-"packadd! ycm
-packadd! fcitx.vim
 packadd! indentLine     " 对齐线"
 packadd! ultisnips      " snippet"
 packadd! vim-snippets   " 常用snippet"
 packadd! delimitMate    " 括号、引号补全"
 packadd! nerdcommenter  " 注释"
-"packadd! vim-go
+if has('win32') && has('gui_running')
+    packadd! vim-powerline
+else
+    packadd! vim-airline " there are some bugs of airline on win32
+    packadd! fcitx.vim
+endif
 
 py3 <<EOF
 import vim
@@ -91,8 +95,6 @@ set clipboard=unnamed
 set completeopt=longest,menu
 set ttimeoutlen=-1 " 退出编辑模式不等待
 
-let g:jedi#popup_on_dot=0
-
 syntax enable " 开启语法高亮功能
 syntax on " 允许用指定语法高亮配色方案替换默认方案
 
@@ -101,8 +103,8 @@ let mapleader=" " "自定义前缀键
 let localleader=" " "自定义前缀键
 nnoremap <silent> <leader>l :nohlsearch<CR>
 
-nmap <C-S> :w<CR>
-nmap <silent> <F5> :call RunOrCompile()<CR>
+nnoremap <C-S> :w<CR>
+nnoremap <silent> <F5> :call RunOrCompile()<CR>
 
 " 窗口切换
 nnoremap <C-J> <C-W><C-J>
@@ -126,11 +128,11 @@ noremap <silent> [q :cprevious<CR>
 " ycm
 nnoremap <silent> ygd :YcmCompleter GoTo<CR>
 
-nnoremap <leader>t :TlistToggle<CR>
+"nmap <leader>t :TlistToggle<CR>
 " 不同时显示多个文件的tag，只显示当前文件的
-let Tlist_Show_One_File = 1
+"let Tlist_Show_One_File = 1
 " 只剩下taglist窗口时关闭
-let Tlist_Exit_OnlyWindow=1
+"let Tlist_Exit_OnlyWindow=1
 
 " 只剩下一个NERDTree窗口时，关闭vim
 " NERDTree窗口放到右边
@@ -164,13 +166,13 @@ func! RunOrCompile()
 endfunc
 
 let g:jedi#force_py_version = 3
+let g:jedi#popup_on_dot=0
 
-if has('gui_running')
+if has('win32') && has('gui_running')
     let g:ycm_global_ycm_extra_conf='C:\Users\Administrator\vimfiles\pack\plugins\opt\ycm\.ycm_extra_conf.py'
 else
     let g:ycm_global_ycm_extra_conf='~/.vim/pack/plugins/opt/ycm/.ycm_extra_conf.py'
 endif
-
 let g:ycm_key_list_select_compeletion = ['<c-n>']
 let g:ycm_key_list_previous_compeletion = ['<c-p>'] 
 let g:ycm_filetype_whitelist = {
@@ -179,6 +181,7 @@ let g:ycm_filetype_whitelist = {
             \ "objc": 1,
             \ "sh": 1,
             \ "js": 1,
+            \ "go": 1,
             \}
 
 let g:UltiSnipsExpandTrigger="<c-j>"  " ultisnip snip扩展快捷键"
