@@ -187,3 +187,5 @@ let g:ycm_filetype_whitelist = {
 let g:UltiSnipsExpandTrigger="<c-j>"  " ultisnip snip扩展快捷键"
 let g:UltiSnipsEditSplit="vertical"   " ultisnip 编辑模式横向窗口打开"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
+
+autocmd Filetype json let g:indentLine_enabled = 0
