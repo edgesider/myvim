@@ -37,3 +37,6 @@
 [submodule "pack/plugins/opt/vim-go"]
 	path = pack/plugins/opt/vim-go
 	url = https://github.com/fatih/vim-go
+[submodule "pack/plugins/opt/vim-powerline"]
+	path = pack/plugins/opt/vim-powerline
+	url = https://github.com/Lokaltog/vim-powerline
