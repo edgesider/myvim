@@ -128,6 +128,13 @@ noremap <silent> [q :cprevious<CR>
 " ycm
 nnoremap <silent> ygd :YcmCompleter GoTo<CR>
 
+" command mode key bindings
+cnoremap <C-A> <Home>
+cnoremap <C-F> <Right>
+cnoremap <C-B> <Left>
+cnoremap <Esc>b <S-Left>
+cnoremap <Esc>f <S-Right>
+
 "nmap <leader>t :TlistToggle<CR>
 " 不同时显示多个文件的tag，只显示当前文件的
 "let Tlist_Show_One_File = 1
