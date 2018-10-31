@@ -61,8 +61,31 @@ packpath_list = vim.eval('&packpath').split(',')
 gen_doc_from_pack_folder(packpath_list[0])
 EOF
 
-colorscheme molokai
+set sessionoptions-=curdir
+set sessionoptions+=sesdir
+set sessionoptions-=blank
+set sessionoptions+=winpos
+func! SaveSpace()
+    mksession! .vim_session
+    wviminfo! .vim_info
+    echo "saved"
+endfunc
+func! LoadSpace()
+    if filereadable(".vim_session")
+        source .vim_session
+    else
+        echo ".vim_session don't exist"
+    endif
+    if filereadable(".vim_info")
+        rviminfo .vim_info
+    else
+        echo ".vim_info don't exist"
+    endif
+endfunc
+nnoremap <silent> <F9> :call SaveSpace()<CR>
+nnoremap <silent> <S-F9> :call LoadSpace()<CR>
 
+colorscheme molokai
 "自动补全
 filetype plugin indent on
 set completeopt=preview,menu
@@ -182,7 +205,7 @@ else
     let g:ycm_global_ycm_extra_conf='~/.vim/pack/plugins/opt/ycm/.ycm_extra_conf.py'
 endif
 let g:ycm_key_list_select_compeletion = ['<c-n>']
-let g:ycm_key_list_previous_compeletion = ['<c-p>'] 
+let g:ycm_key_list_previous_compeletion = ['<c-p>']
 let g:ycm_filetype_whitelist = {
             \ "c": 1,
             \ "cpp": 1,
