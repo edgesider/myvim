@@ -1,3 +1,96 @@
+func! SetWin32Gui()
+    set encoding=utf8
+    set fileencoding=utf8
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    set lines=30 columns=100
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=e
+    set guioptions-=r
+    set guioptions-=L
+    set guioptions+=!
+    set guioptions+=c
+    set guifont=consolas:h14
+    set guifontwide=黑体
+    " 将所有的光标设置为白块不闪烁，然后单独设置visual模式的光标
+    set guicursor=a:block-iCursor-blinkon0,v:block-vCursor
+    set pythonthreedll=python36.dll
+endfunc
+
+func! SaveSpace()
+py3 << EOF
+import vim
+import os
+if not os.path.isdir(".vimws"):
+    os.mkdir(".vimws")
+vim.command("mksession! .vimws/session")
+vim.command("wviminfo! .vimws/info")
+vim.command('echo "workspace saved"')
+EOF
+endfunc
+
+func! LoadSpace()
+    if filereadable(".vimws/session")
+        source .vimws/session
+        cd ..
+    else
+        echo "session file don't exist"
+    endif
+    if filereadable(".vimws/info")
+        rviminfo .vimws/info
+    else
+        echo "info file don't exist"
+    endif
+endfunc
+
+" 编译或运行
+func! RunOrCompile()
+    if &filetype == 'c'
+        exec "w"
+        exec "!gcc % -o %<"
+        exec "!./%<"
+    elseif &filetype == 'cpp'
+        exec "w"
+        exec "!g++ % -std=c++11 -o %<"
+        exec "!./%<"
+    elseif &filetype == 'python'
+        exec "w"
+        exec "!python %"
+    elseif &filetype == 'perl'
+        exec "w"
+        exec "!perl %"
+    elseif &filetype == 'sh'
+        exec "w"
+        exec "!bash %"
+    elseif &filetype == 'go'
+        exec "w"
+        exec "!go run %"
+    endif
+endfunc
+
+func! GenDoc()
+py3 << EOF
+import vim
+import os
+
+def gen_doc_from_pack_folder(folder):
+    pack_path = os.path.join(folder, 'pack', 'plugins', 'opt')
+    current_dir = os.getcwd()
+    os.chdir(pack_path)
+
+    for pack in os.listdir(pack_path):
+        if os.path.isdir(os.path.join(pack, 'doc')) \
+            and not os.path.isfile(os.path.join(pack, 'doc', "tags")):
+            vim.command('helptags {}'.format(os.path.join(pack, 'doc')))
+    os.chdir(current_dir)
+
+packpath_list = vim.eval('&packpath').split(',')
+
+gen_doc_from_pack_folder(packpath_list[0])
+EOF
+endfunc
+
 if has('win32') && has('gui_running')
     call SetWin32Gui()
 endif
@@ -24,26 +117,6 @@ else
     packadd! vim-airline " there are some bugs of airline on win32
     packadd! fcitx.vim
 endif
-
-py3 << EOF
-import vim
-import os
-
-def gen_doc_from_pack_folder(folder):
-    pack_path = os.path.join(folder, 'pack', 'plugins', 'opt')
-    current_dir = os.getcwd()
-    os.chdir(pack_path)
-
-    for pack in os.listdir(pack_path):
-        if os.path.isdir(os.path.join(pack, 'doc')) \
-            and not os.path.isfile(os.path.join(pack, 'doc', "tags")):
-            vim.command('helptags {}'.format(os.path.join(pack, 'doc')))
-    os.chdir(current_dir)
-
-packpath_list = vim.eval('&packpath').split(',')
-
-gen_doc_from_pack_folder(packpath_list[0])
-EOF
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
@@ -97,6 +170,8 @@ nnoremap <silent> <leader>l :nohlsearch<CR>
 
 nnoremap <C-S> :w<CR>
 nnoremap <silent> <F5> :call RunOrCompile()<CR>
+nnoremap <M-j> jzz
+nnoremap <M-k> kzz
 
 " 窗口切换
 nnoremap <C-J> <C-W><C-J>
@@ -123,8 +198,8 @@ nnoremap <silent> ygd :YcmCompleter GoTo<CR>
 cnoremap <C-A> <Home>
 cnoremap <C-F> <Right>
 cnoremap <C-B> <Left>
-cnoremap <Esc>b <S-Left>
-cnoremap <Esc>f <S-Right>
+cnoremap <M-B> <S-Left>
+cnoremap <M-F> <S-Right>
 
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 let g:tagbar_width = 30
@@ -187,69 +262,4 @@ let g:UltiSnipsEditSplit="vertical"   " ultisnip 编辑模式横向窗口打开"
 
 autocmd Filetype json let g:indentLine_enabled = 0
 
-func! SetWin32Gui()
-    set encoding=utf8
-    set fileencoding=utf8
-    source $VIMRUNTIME/delmenu.vim
-    source $VIMRUNTIME/menu.vim
-    set lines=30 columns=100
-    set guioptions-=m
-    set guioptions-=T
-    set guioptions-=e
-    set guifont=consolas:h14
-    set guifontwide=黑体
-    " 将所有的光标设置为白块不闪烁，然后单独设置visual模式的光标
-    set guicursor=a:block-iCursor-blinkon0,v:block-vCursor
-    set pythonthreedll=python36.dll
-endfunc
-
-func! SaveSpace()
-py3 << EOF
-import vim
-import os
-if not os.path.isdir(".vimws"):
-    os.mkdir(".vimws")
-vim.command("mksession! .vimws/session")
-vim.command("wviminfo! .vimws/info")
-vim.command('echo "workspace saved"')
-EOF
-endfunc
-
-func! LoadSpace()
-    if filereadable(".vimws/session")
-        source .vimws/session
-        cd ..
-    else
-        echo "session file don't exist"
-    endif
-    if filereadable(".vimws/info")
-        rviminfo .vimws/info
-    else
-        echo "info file don't exist"
-    endif
-endfunc
-
-" 编译或运行
-func! RunOrCompile()
-    if &filetype == 'c'
-        exec "w"
-        exec "!gcc % -o %<"
-        exec "!./%<"
-    elseif &filetype == 'cpp'
-        exec "w"
-        exec "!g++ % -std=c++11 -o %<"
-        exec "!./%<"
-    elseif &filetype == 'python'
-        exec "w"
-        exec "!python %"
-    elseif &filetype == 'perl'
-        exec "w"
-        exec "!perl %"
-    elseif &filetype == 'sh'
-        exec "w"
-        exec "!bash %"
-    elseif &filetype == 'go'
-        exec "w"
-        exec "!go run %"
-    endif
-endfunc
+call GenDoc()
