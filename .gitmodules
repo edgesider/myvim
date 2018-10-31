@@ -37,3 +37,6 @@
 [submodule "pack/plugins/opt/vim-powerline"]
 	path = pack/plugins/opt/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline
+[submodule "pack/plugins/opt/nerdtree"]
+	path = pack/plugins/opt/nerdtree
+	url = https://github.com/scrooloose/nerdtree

@@ -24,6 +24,7 @@ endif
 
 "packadd! ycm
 "packadd! tagbar
+packadd! nerdtree
 packadd! molokai
 packadd! vim-surround
 packadd! jedi-vim
@@ -177,9 +178,9 @@ cnoremap <Esc>f <S-Right>
 
 " 只剩下一个NERDTree窗口时，关闭vim
 " NERDTree窗口放到右边
-" let NERDTreeWinPos=1
-" map <leader>n :NERDTreeToggle<CR>
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let NERDTreeWinPos=1
+nnoremap <leader>n :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " 编译或运行
 func! RunOrCompile()
