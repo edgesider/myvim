@@ -1,15 +1,14 @@
 func! SetWin32Gui()
+    set encoding=utf8
+    set fileencoding=utf8
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
-    set encoding=utf8
-    set fileencoding=chinese
     set lines=30 columns=100
     set guioptions-=m
     set guioptions-=T
     set guioptions-=e
     set guifont=consolas:h14
     set guifontwide=黑体
-
     " 将所有的光标设置为白块不闪烁，然后单独设置visual模式的光标
     set guicursor=a:block-iCursor-blinkon0,v:block-vCursor 
     set pythonthreedll=python36.dll
@@ -65,21 +64,32 @@ set sessionoptions-=curdir
 set sessionoptions+=sesdir
 set sessionoptions-=blank
 set sessionoptions+=winpos
+set sessionoptions+=resize
+set sessionoptions+=winsize
+set sessionoptions+=unix
+set sessionoptions+=slash
 func! SaveSpace()
-    mksession! .vim_session
-    wviminfo! .vim_info
-    echo "saved"
+py3 << EOF
+import vim
+import os
+if not os.path.isdir(".vimws"):
+    os.mkdir(".vimws")
+vim.command("mksession! .vimws/session")
+vim.command("wviminfo! .vimws/info")
+vim.command('echo "workspace saved"')
+EOF
 endfunc
 func! LoadSpace()
-    if filereadable(".vim_session")
-        source .vim_session
+    if filereadable(".vimws/session")
+        source .vimws/session
+        cd ..
     else
-        echo ".vim_session don't exist"
+        echo "session file don't exist"
     endif
-    if filereadable(".vim_info")
-        rviminfo .vim_info
+    if filereadable(".vimws/info")
+        rviminfo .vimws/info
     else
-        echo ".vim_info don't exist"
+        echo "info file don't exist"
     endif
 endfunc
 nnoremap <silent> <F9> :call SaveSpace()<CR>
