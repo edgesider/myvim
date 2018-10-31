@@ -23,7 +23,7 @@ if !has('win32')
 endif
 
 "packadd! ycm
-"packadd! tagbar
+packadd! tagbar
 packadd! nerdtree
 packadd! molokai
 packadd! vim-surround
@@ -93,8 +93,8 @@ func! LoadSpace()
         echo "info file don't exist"
     endif
 endfunc
-nnoremap <silent> <F9> :call SaveSpace()<CR>
-nnoremap <silent> <S-F9> :call LoadSpace()<CR>
+nnoremap <silent> <C-F9> :call SaveSpace()<CR>
+nnoremap <silent> <C-F10> :call LoadSpace()<CR>
 
 colorscheme molokai
 "自动补全
@@ -170,7 +170,36 @@ cnoremap <C-B> <Left>
 cnoremap <Esc>b <S-Left>
 cnoremap <Esc>f <S-Right>
 
-"nmap <leader>t :TlistToggle<CR>
+nnoremap <silent> <leader>t :TagbarToggle<CR>
+let g:tagbar_width = 30
+let g:tagbar_left = 1
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 " 不同时显示多个文件的tag，只显示当前文件的
 "let Tlist_Show_One_File = 1
 " 只剩下taglist窗口时关闭
