@@ -10,7 +10,7 @@ func! SetWin32Gui()
     set guifont=consolas:h14
     set guifontwide=黑体
     " 将所有的光标设置为白块不闪烁，然后单独设置visual模式的光标
-    set guicursor=a:block-iCursor-blinkon0,v:block-vCursor 
+    set guicursor=a:block-iCursor-blinkon0,v:block-vCursor
     set pythonthreedll=python36.dll
 endfunc
 
