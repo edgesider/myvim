@@ -24,6 +24,10 @@ import vim
 import os
 if not os.path.isdir(".vimws"):
     os.mkdir(".vimws")
+if os.path.isfile(".vimws/session"):
+    os.rename(".vimws/session", ".vimws/last_session")
+if os.path.isfile(".vimws/info"):
+    os.rename(".vimws/info", ".vimws/last_info")
 vim.command("mksession! .vimws/session")
 vim.command("wviminfo! .vimws/info")
 vim.command('echo "workspace saved"')
@@ -41,6 +45,20 @@ func! LoadSpace()
         rviminfo .vimws/info
     else
         echo "info file don't exist"
+    endif
+endfunc
+
+func! LoadLastSpace()
+    if filereadable(".vimws/session")
+        source .vimws/last_session
+        cd ..
+    else
+        echo "last session file don't exist"
+    endif
+    if filereadable(".vimws/last_info")
+        rviminfo .vimws/last_info
+    else
+        echo "last info file don't exist"
     endif
 endfunc
 
@@ -152,7 +170,7 @@ set ignorecase  " 忽略大小写
 set smartindent
 set foldmethod=indent " 折叠方式
 " set foldcolumn=2    " 折叠层次显示
-" set foldlevelstart=99
+set foldlevelstart=100 " 默认不折叠
 set colorcolumn=100  " 80个字符处划线
 " set fillchars=vert:\   " 将分割线设置为空格，末尾有空格，需要转义
 set wildmenu wildmode=longest,full" Ex模式下Tab键补全窗口
