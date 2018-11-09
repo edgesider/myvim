@@ -84,6 +84,9 @@ func! RunOrCompile()
     elseif &filetype == 'go'
         exec "w"
         exec "!go run %"
+    elseif &filetype == 'cs'
+        exec "w"
+        exec "!csc %; mono ./%<.exe"
     endif
 endfunc
 
@@ -150,7 +153,6 @@ nnoremap <silent> <C-F10> :call LoadSpace()<CR>
 colorscheme molokai
 "自动补全
 filetype plugin indent on
-set completeopt=preview,menu
 setlocal cm=blowfish2  " 设置加密方式
 set autoread
 set number
@@ -223,6 +225,7 @@ cnoremap <M-F> <S-Right>
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 let g:tagbar_width = 30
 let g:tagbar_left = 1
+let g:tagbar_sort = 0 " sort by real position in file
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
