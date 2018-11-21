@@ -16,6 +16,7 @@ func! SetWin32Gui()
     " 将所有的光标设置为白块不闪烁，然后单独设置visual模式的光标
     set guicursor=a:block-iCursor-blinkon0,v:block-vCursor
     set pythonthreedll=python36.dll
+    set backspace=indent,eol,start   " 任何时候都可以使用退格键
 endfunc
 
 func! SaveSpace()
@@ -131,6 +132,7 @@ packadd! ultisnips      " snippet"
 packadd! vim-snippets   " 常用snippet"
 packadd! delimitMate    " 括号、引号补全"
 packadd! nerdcommenter  " 注释"
+packadd! easy-align     " 对齐"
 
 if has('win32') && has('gui_running')
     packadd! vim-powerline
@@ -215,6 +217,10 @@ noremap <silent> [q :cprevious<CR>
 " ycm
 nnoremap <silent> ygd :YcmCompleter GoTo<CR>
 
+" easy-align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 " command mode key bindings
 cnoremap <C-A> <Home>
 cnoremap <C-F> <Right>
@@ -260,7 +266,7 @@ let NERDTreeWinPos=1
 " 只剩下一个NERDTree窗口时，关闭vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-let g:jedi#force_py_version = 3
+let g:jedi#force_py_version = '3.7'
 let g:jedi#popup_on_dot=0
 
 if has('win32') && has('gui_running')

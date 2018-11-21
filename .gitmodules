@@ -46,3 +46,6 @@
 [submodule "pack/plugins/opt/unite-outline"]
 	path = pack/plugins/opt/unite-outline
 	url = https://github.com/Shougo/unite-outline
+[submodule "pack/plugins/opt/easy-align"]
+	path = pack/plugins/opt/easy-align
+	url = https://github.com/junegunn/vim-easy-align
