@@ -23,71 +23,71 @@ func! SaveSpace()
 py3 << EOF
 import vim
 import os
-if not os.path.isdir(".vimws"):
-    os.mkdir(".vimws")
-if os.path.isfile(".vimws/session"):
-    os.rename(".vimws/session", ".vimws/last_session")
-if os.path.isfile(".vimws/info"):
-    os.rename(".vimws/info", ".vimws/last_info")
-vim.command("mksession! .vimws/session")
-vim.command("wviminfo! .vimws/info")
-vim.command('echo "workspace saved"')
+if not os.path.isdir('.vimws'):
+    os.mkdir('.vimws')
+if os.path.isfile('.vimws/session'):
+    os.rename('.vimws/session', '.vimws/last_session')
+if os.path.isfile('.vimws/info'):
+    os.rename('.vimws/info', '.vimws/last_info')
+vim.command('mksession! .vimws/session')
+vim.command('wviminfo! .vimws/info')
+vim.command('echo 'workspace saved'')
 EOF
 endfunc
 
 func! LoadSpace()
-    if filereadable(".vimws/session")
+    if filereadable('.vimws/session')
         source .vimws/session
         cd ..
     else
-        echo "session file don't exist"
+        echo 'session file not exist'
     endif
-    if filereadable(".vimws/info")
+    if filereadable('.vimws/info')
         rviminfo .vimws/info
     else
-        echo "info file don't exist"
+        echo 'info file not exist'
     endif
 endfunc
 
 func! LoadLastSpace()
-    if filereadable(".vimws/session")
+    if filereadable('.vimws/session')
         source .vimws/last_session
         cd ..
     else
-        echo "last session file don't exist"
+        echo 'last session file not exist'
     endif
-    if filereadable(".vimws/last_info")
+    if filereadable('.vimws/last_info')
         rviminfo .vimws/last_info
     else
-        echo "last info file don't exist"
+        echo 'last info file not exist'
     endif
 endfunc
 
 " 编译或运行
 func! RunOrCompile()
-    if &filetype == 'c'
-        exec "w"
-        exec "!gcc % -o %<"
-        exec "!./%<"
-    elseif &filetype == 'cpp'
-        exec "w"
-        exec "!g++ % -std=c++11 -o %<"
-        exec "!./%<"
-    elseif &filetype == 'python'
-        exec "w"
-        exec "!python %"
-    elseif &filetype == 'perl'
-        exec "w"
-        exec "!perl %"
-    elseif &filetype == 'sh'
-        exec "w"
-        exec "!bash %"
-    elseif &filetype == 'go'
-        exec "w"
-        exec "!go run %"
-    elseif &filetype == 'cs'
-        exec "w"
-        exec "!csc %; mono ./%<.exe"
+    if &filetype ==# 'c'
+        exec 'w'
+        exec '!gcc % -o %<'
+        exec '!./%<'
+    elseif &filetype ==# 'cpp'
+        exec 'w'
+        exec '!g++ % -std=c++11 -o %<'
+        exec '!./%<'
+    elseif &filetype ==# 'python'
+        exec 'w'
+        exec '!python %'
+    elseif &filetype ==# 'perl'
+        exec 'w'
+        exec '!perl %'
+    elseif &filetype ==# 'sh'
+        exec 'w'
+        exec '!bash %'
+    elseif &filetype ==# 'go'
+        exec 'w'
+        exec '!go run %'
+    elseif &filetype ==# 'cs'
+        exec 'w'
+        exec '!csc %; mono ./%<.exe'
     endif
 endfunc
 
@@ -103,7 +103,7 @@ def gen_doc_from_pack_folder(folder):
 
     for pack in os.listdir(pack_path):
         if os.path.isdir(os.path.join(pack, 'doc')) \
-            and not os.path.isfile(os.path.join(pack, 'doc', "tags")):
+            and not os.path.isfile(os.path.join(pack, 'doc', 'tags')):
             vim.command('helptags {}'.format(os.path.join(pack, 'doc')))
     os.chdir(current_dir)
 
@@ -120,19 +120,21 @@ endif
 if !has('win32')
     set shell=/bin/bash
 endif
+scriptencoding utf8
 
-"packadd! ycm
+" packadd! ycm
+packadd! ale
 packadd! tagbar
 packadd! nerdtree
 packadd! molokai
 packadd! vim-surround
 packadd! jedi-vim
-packadd! indentLine     " 对齐线"
-packadd! ultisnips      " snippet"
-packadd! vim-snippets   " 常用snippet"
-packadd! delimitMate    " 括号、引号补全"
-packadd! nerdcommenter  " 注释"
-packadd! easy-align     " 对齐"
+packadd! indentLine     " 对齐线
+packadd! ultisnips      " snippet
+packadd! vim-snippets   " 常用snippet
+packadd! delimitMate    " 括号、引号补全
+packadd! nerdcommenter  " 注释
+packadd! easy-align     " 对齐
 
 if has('win32') && has('gui_running')
     packadd! vim-powerline
@@ -155,11 +157,11 @@ nnoremap <silent> <C-F10> :call LoadSpace()<CR>
 colorscheme molokai
 "自动补全
 filetype plugin indent on
-setlocal cm=blowfish2  " 设置加密方式
+setlocal cryptmethod=blowfish2  " 设置加密方式
 set autoread
 set number
 set shiftwidth=4  "操作（<<和>>）时缩进的列数
-set ts=4    "tabstop 一个tab键所占的列数
+set tabstop=4    "tabstop 一个tab键所占的列数
 set expandtab   "输入tab时自动将其转化为空格
 set nowrap " 禁止折行
 set laststatus=2 " 显示光标当前位置
@@ -167,28 +169,28 @@ set number
 set cursorline cursorcolumn " 高亮显示当前行/列
 set hlsearch " 高亮显示搜索结果
 set incsearch " 实时搜索
-set nocompatible " 关闭兼容模式
 set showcmd    " 右下角按键显示
 set autowrite " 自动保存
 set ignorecase  " 忽略大小写
 set smartindent
 set foldmethod=indent " 折叠方式
-" set foldcolumn=2    " 折叠层次显示
+" set foldcolumn=2    ' 折叠层次显示
 set foldlevelstart=100 " 默认不折叠
 set colorcolumn=100  " 80个字符处划线
-" set fillchars=vert:\   " 将分割线设置为空格，末尾有空格，需要转义
+" set fillchars=vert:\   ' 将分割线设置为空格，末尾有空格，需要转义
 set wildmenu wildmode=longest,full" Ex模式下Tab键补全窗口
 set clipboard=unnamed
 set completeopt=longest,menu
 set updatetime=100 " 及时写入swap文件，保证tagbar的及时更新
 set ttimeoutlen=-1 " 退出编辑模式不等待
+set noshowmode
 
 syntax enable " 开启语法高亮功能
 syntax on " 允许用指定语法高亮配色方案替换默认方案
 
 " 一些键盘映射
-let mapleader=" " "自定义前缀键
-let localleader=" " "自定义前缀键
+let mapleader=' ' "自定义前缀键
+let localleader=' ' "自定义前缀键
 nnoremap <silent> <leader>l :nohlsearch<CR>
 
 nnoremap <C-S> :w<CR>
@@ -227,14 +229,15 @@ cnoremap <C-F> <Right>
 cnoremap <C-B> <Left>
 cnoremap <M-B> <S-Left>
 cnoremap <M-F> <S-Right>
+cnoremap <M-D> <S-Right><C-W>
 
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 let g:tagbar_width = 30
 let g:tagbar_left = 1
 let g:tagbar_sort = 0 " sort by real position in file
 let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
+    \ 'ctagstype':  'go',
+    \ 'kinds':      [
         \ 'p:package',
         \ 'i:imports:1',
         \ 'c:constants',
@@ -247,24 +250,24 @@ let g:tagbar_type_go = {
         \ 'r:constructor',
         \ 'f:functions'
     \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
+    \ 'sro':        '.',
+    \ 'kind2scope': {
+        \ 't':      'ctype',
+        \ 'n':      'ntype'
     \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
+    \ 'scope2kind': {
+        \ 'ctype':  't',
+        \ 'ntype':  'n'
     \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
+    \ 'ctagsbin':   'gotags',
+    \ 'ctagsargs':  '-sort -silent'
 \ }
 
 nnoremap <leader>n :NERDTreeToggle<CR>
 " NERDTree窗口放到右边
 let NERDTreeWinPos=1
 " 只剩下一个NERDTree窗口时，关闭vim
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
 
 let g:jedi#force_py_version = '3.7'
 let g:jedi#popup_on_dot=0
@@ -277,17 +280,27 @@ endif
 let g:ycm_key_list_select_compeletion = ['<c-n>']
 let g:ycm_key_list_previous_compeletion = ['<c-p>']
 let g:ycm_filetype_whitelist = {
-            \ "c": 1,
-            \ "cpp": 1,
-            \ "objc": 1,
-            \ "sh": 1,
-            \ "js": 1,
-            \ "go": 1,
+            \ 'c':    1,
+            \ 'cpp':  1,
+            \ 'objc': 1,
+            \ 'sh':   1,
+            \ 'js':   1,
+            \ 'go':   1,
             \}
 
-let g:UltiSnipsExpandTrigger="<c-j>"  " ultisnip snip扩展快捷键"
-let g:UltiSnipsEditSplit="vertical"   " ultisnip 编辑模式横向窗口打开"
+let g:UltiSnipsExpandTrigger='<c-j>'  " ultisnip snip扩展快捷键
+let g:UltiSnipsEditSplit='vertical'   " ultisnip 编辑模式横向窗口打开
 
 autocmd Filetype json let g:indentLine_enabled = 0
 
 call GenDoc()
+
+" gutentags settings
+" gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+" 所生成的数据文件的名称
+let g:gutentags_modules = ['gtags_cscope']
+" 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+" 禁用 gutentags 自动加载 gtags 数据库的行为
+let g:gutentags_auto_add_gtags_cscope = 1

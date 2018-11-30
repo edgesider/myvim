@@ -49,3 +49,12 @@
 [submodule "pack/plugins/opt/easy-align"]
 	path = pack/plugins/opt/easy-align
 	url = https://github.com/junegunn/vim-easy-align
+[submodule "pack/plugins/opt/ale"]
+	path = pack/plugins/opt/ale
+	url = https://github.com/w0rp/ale
+[submodule "pack/plugins/opt/vim-gutentags"]
+	path = pack/plugins/opt/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule "pack/plugins/opt/gutentags_plus"]
+	path = pack/plugins/opt/gutentags_plus
+	url = https://github.com/skywind3000/gutentags_plus
