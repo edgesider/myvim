@@ -135,13 +135,7 @@ packadd! vim-snippets   " 常用snippet
 packadd! delimitMate    " 括号、引号补全
 packadd! nerdcommenter  " 注释
 packadd! easy-align     " 对齐
-
-if has('win32') && has('gui_running')
-    packadd! vim-powerline
-else
-    packadd! vim-airline " there are some bugs of airline on win32
-    packadd! fcitx.vim
-endif
+packadd! vim-airline
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
