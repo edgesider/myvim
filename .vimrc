@@ -212,6 +212,10 @@ nnoremap <silent> ]b :bnext<CR>
 nnoremap <silent> [t :tabprevious<CR>
 nnoremap <silent> ]t :tabnext<CR>
 
+" ale lint切换
+nnoremap [a :ALEPrevious<CR>
+nnoremap ]a :ALENext<CR>
+
 " quickfix
 noremap <silent> ]q :cnext<CR>
 noremap <silent> [q :cprevious<CR>
