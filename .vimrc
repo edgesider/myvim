@@ -136,6 +136,9 @@ packadd! delimitMate    " 括号、引号补全
 packadd! nerdcommenter  " 注释
 packadd! easy-align     " 对齐
 packadd! vim-airline
+packadd! vim-gutentags
+packadd! gutentags_plus
+packadd! LeaderF
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
@@ -229,43 +232,44 @@ cnoremap <M-B> <S-Left>
 cnoremap <M-F> <S-Right>
 cnoremap <M-D> <S-Right><C-W>
 
-nnoremap <silent> <leader>t :TagbarToggle<CR>
-let g:tagbar_width = 30
-let g:tagbar_left = 1
-let g:tagbar_sort = 0 " sort by real position in file
-let g:tagbar_type_go = {
-    \ 'ctagstype':  'go',
-    \ 'kinds':      [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro':        '.',
-    \ 'kind2scope': {
-        \ 't':      'ctype',
-        \ 'n':      'ntype'
-    \ },
-    \ 'scope2kind': {
-        \ 'ctype':  't',
-        \ 'ntype':  'n'
-    \ },
-    \ 'ctagsbin':   'gotags',
-    \ 'ctagsargs':  '-sort -silent'
-\ }
-
-nnoremap <leader>n :NERDTreeToggle<CR>
-" NERDTree窗口放到右边
-let NERDTreeWinPos=1
-" 只剩下一个NERDTree窗口时，关闭vim
-autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
+nnoremap <silent> <leader>t :LeaderfBufTag<CR>
+" nnoremap <silent> <leader>t :TagbarToggle<CR>
+" let g:tagbar_width = 30
+" let g:tagbar_left = 1
+" let g:tagbar_sort = 0 " sort by real position in file
+" let g:tagbar_type_go = {
+"     \ 'ctagstype':  'go',
+"     \ 'kinds':      [
+"         \ 'p:package',
+"         \ 'i:imports:1',
+"         \ 'c:constants',
+"         \ 'v:variables',
+"         \ 't:types',
+"         \ 'n:interfaces',
+"         \ 'w:fields',
+"         \ 'e:embedded',
+"         \ 'm:methods',
+"         \ 'r:constructor',
+"         \ 'f:functions'
+"     \ ],
+"     \ 'sro':        '.',
+"     \ 'kind2scope': {
+"         \ 't':      'ctype',
+"         \ 'n':      'ntype'
+"     \ },
+"     \ 'scope2kind': {
+"         \ 'ctype':  't',
+"         \ 'ntype':  'n'
+"     \ },
+"     \ 'ctagsbin':   'gotags',
+"     \ 'ctagsargs':  '-sort -silent'
+" \ }
+" 
+" nnoremap <leader>n :NERDTreeToggle<CR>
+" " NERDTree窗口放到右边
+" let NERDTreeWinPos=1
+" " 只剩下一个NERDTree窗口时，关闭vim
+" autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
 
 let g:jedi#force_py_version = '3.7'
 let g:jedi#popup_on_dot=0

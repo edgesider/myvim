@@ -58,3 +58,6 @@
 [submodule "pack/plugins/opt/gutentags_plus"]
 	path = pack/plugins/opt/gutentags_plus
 	url = https://github.com/skywind3000/gutentags_plus
+[submodule "pack/plugins/opt/LeaderF"]
+	path = pack/plugins/opt/LeaderF
+	url = https://github.com/Yggdroot/LeaderF
