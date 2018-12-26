@@ -5,7 +5,7 @@ func! SetWin32Gui()
     source $VIMRUNTIME/menu.vim
     set lines=30 columns=100
     set guioptions-=m
-**    set guioptions-=T
+    set guioptions-=T
     set guioptions-=e
     set guioptions-=r
     set guioptions-=L
@@ -233,76 +233,25 @@ cnoremap <M-F> <S-Right>
 cnoremap <M-D> <S-Right><C-W>
 
 nnoremap <silent> <leader>t :LeaderfBufTag<CR>
-" nnoremap <silent> <leader>t :TagbarToggle<CR>
-" let g:tagbar_width = 30
-" let g:tagbar_left = 1
-" let g:tagbar_sort = 0 " sort by real position in file
-" let g:tagbar_type_go = {
-"     \ 'ctagstype':  'go',
-"     \ 'kinds':      [
-"         \ 'p:package',
-"         \ 'i:imports:1',
-"         \ 'c:constants',
-"         \ 'v:variables',
-"         \ 't:types',
-"         \ 'n:interfaces',
-"         \ 'w:fields',
-"         \ 'e:embedded',
-"         \ 'm:methods',
-"         \ 'r:constructor',
-"         \ 'f:functions'
-"     \ ],
-"     \ 'sro':        '.',
-"     \ 'kind2scope': {
-"         \ 't':      'ctype',
-"         \ 'n':      'ntype'
-"     \ },
-"     \ 'scope2kind': {
-"         \ 'ctype':  't',
-"         \ 'ntype':  'n'
-"     \ },
-"     \ 'ctagsbin':   'gotags',
-"     \ 'ctagsargs':  '-sort -silent'
-" \ }
-" 
-" nnoremap <leader>n :NERDTreeToggle<CR>
-" " NERDTree窗口放到右边
-" let NERDTreeWinPos=1
-" " 只剩下一个NERDTree窗口时，关闭vim
-" autocmd bufenter * if (winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()) | q | endif
 
 let g:jedi#force_py_version = '3.7'
 let g:jedi#popup_on_dot=0
 
-if has('win32') && has('gui_running')
-    let g:ycm_global_ycm_extra_conf='C:\Users\Administrator\vimfiles\pack\plugins\opt\ycm\.ycm_extra_conf.py'
-else
-    let g:ycm_global_ycm_extra_conf='~/.vim/pack/plugins/opt/ycm/.ycm_extra_conf.py'
-endif
-let g:ycm_key_list_select_compeletion = ['<c-n>']
-let g:ycm_key_list_previous_compeletion = ['<c-p>']
-let g:ycm_filetype_whitelist = {
-            \ 'c':    1,
-            \ 'cpp':  1,
-            \ 'objc': 1,
-            \ 'sh':   1,
-            \ 'js':   1,
-            \ 'go':   1,
-            \}
-
 let g:UltiSnipsExpandTrigger='<c-j>'  " ultisnip snip扩展快捷键
 let g:UltiSnipsEditSplit='vertical'   " ultisnip 编辑模式横向窗口打开
+
+let g:Lf_WindowHeight = 0.3
+let g:Lf_PreviewResult = {
+        \ 'File': 0,
+        \ 'Buffer': 0,
+        \ 'Mru': 0,
+        \ 'Tag': 0,
+        \ 'BufTag': 0,
+        \ 'Function': 0,
+        \ 'Line': 0,
+        \ 'Colorscheme': 0
+        \}
 
 autocmd Filetype json let g:indentLine_enabled = 0
 
 call GenDoc()
-
-" gutentags settings
-" gutentags 搜索工程目录的标志，当前文件路径向上递归直到碰到这些文件/目录名
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-" 所生成的数据文件的名称
-let g:gutentags_modules = ['gtags_cscope']
-" 将自动生成的 ctags/gtags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-let g:gutentags_cache_dir = expand('~/.cache/tags')
-" 禁用 gutentags 自动加载 gtags 数据库的行为
-let g:gutentags_auto_add_gtags_cscope = 1
