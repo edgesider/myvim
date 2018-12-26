@@ -5,7 +5,7 @@ func! SetWin32Gui()
     source $VIMRUNTIME/menu.vim
     set lines=30 columns=100
     set guioptions-=m
-    set guioptions-=T
+**    set guioptions-=T
     set guioptions-=e
     set guioptions-=r
     set guioptions-=L
@@ -31,7 +31,7 @@ if os.path.isfile('.vimws/info'):
     os.rename('.vimws/info', '.vimws/last_info')
 vim.command('mksession! .vimws/session')
 vim.command('wviminfo! .vimws/info')
-vim.command('echo 'workspace saved'')
+vim.command("echo 'workspace saved'")
 EOF
 endfunc
 
@@ -123,21 +123,21 @@ endif
 scriptencoding utf8
 
 " packadd! ycm
-packadd! ale
+" packadd! ale
 packadd! tagbar
 packadd! nerdtree
 packadd! molokai
 packadd! vim-surround
 packadd! jedi-vim
-packadd! indentLine     " 对齐线
+" packadd! indentLine     " 对齐线
 packadd! ultisnips      " snippet
 packadd! vim-snippets   " 常用snippet
 packadd! delimitMate    " 括号、引号补全
 packadd! nerdcommenter  " 注释
 packadd! easy-align     " 对齐
 packadd! vim-airline
-packadd! vim-gutentags
-packadd! gutentags_plus
+" packadd! vim-gutentags
+" packadd! gutentags_plus
 packadd! LeaderF
 
 set sessionoptions-=curdir
