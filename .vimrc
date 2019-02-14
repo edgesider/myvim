@@ -124,8 +124,8 @@ scriptencoding utf8
 
 " packadd! ycm
 " packadd! ale
-packadd! tagbar
-packadd! nerdtree
+" packadd! tagbar
+" packadd! nerdtree
 packadd! molokai
 packadd! vim-surround
 packadd! jedi-vim
@@ -190,6 +190,8 @@ let mapleader=' ' "自定义前缀键
 let localleader=' ' "自定义前缀键
 nnoremap <silent> <leader>l :nohlsearch<CR>
 
+nnoremap <silent> <leader>T :terminal fish<CR>
+
 nnoremap <C-S> :w<CR>
 nnoremap <silent> <F5> :call RunOrCompile()<CR>
 nnoremap <M-j> jzz
@@ -204,10 +206,14 @@ nnoremap <C-H> <C-W><C-H>
 " buffer切换
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
+tnoremap <silent> <C-W>[b <C-W>:bprevious<CR>
+tnoremap <silent> <C-W>]b <C-W>:bnext<CR>
 
 " 标签页切换
 nnoremap <silent> [t :tabprevious<CR>
 nnoremap <silent> ]t :tabnext<CR>
+tnoremap <silent> <C-W>[t <C-W>:tabprevious<CR>
+tnoremap <silent> <C-W>]t <C-W>:tabnext<CR>
 
 " ale lint切换
 nnoremap [a :ALEPrevious<CR>
@@ -233,6 +239,7 @@ cnoremap <M-F> <S-Right>
 cnoremap <M-D> <S-Right><C-W>
 
 nnoremap <silent> <leader>t :LeaderfBufTag<CR>
+nnoremap <silent> <leader>m :LeaderfMru<CR>
 
 let g:jedi#force_py_version = '3.7'
 let g:jedi#popup_on_dot=0
@@ -254,4 +261,4 @@ let g:Lf_PreviewResult = {
 
 autocmd Filetype json let g:indentLine_enabled = 0
 
-call GenDoc()
+" call GenDoc()
