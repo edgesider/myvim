@@ -124,7 +124,7 @@ scriptencoding utf8
 
 " packadd! ycm
 " packadd! ale
-" packadd! tagbar
+packadd! tagbar
 " packadd! nerdtree
 packadd! molokai
 packadd! vim-surround
@@ -191,9 +191,16 @@ let localleader=' ' "自定义前缀键
 nnoremap <silent> <leader>l :nohlsearch<CR>
 
 nnoremap <silent> <leader>T :terminal fish<CR>
+nnoremap <silent> <leader>t :Tagbar<CR>
+
+" leaderF
+"nnoremap <silent> <leader>t :LeaderfBufTag<CR>
+nnoremap <silent> <leader>m :LeaderfMru<CR>
 
 nnoremap <C-S> :w<CR>
 nnoremap <silent> <F5> :call RunOrCompile()<CR>
+
+" inline jump
 nnoremap <M-j> jzz
 nnoremap <M-k> kzz
 
@@ -210,6 +217,7 @@ tnoremap <silent> <C-W>[b <C-W>:bprevious<CR>
 tnoremap <silent> <C-W>]b <C-W>:bnext<CR>
 
 " 标签页切换
+nnoremap <silent> \t :tabnew .<CR>
 nnoremap <silent> [t :tabprevious<CR>
 nnoremap <silent> ]t :tabnext<CR>
 tnoremap <silent> <C-W>[t <C-W>:tabprevious<CR>
@@ -224,7 +232,7 @@ noremap <silent> ]q :cnext<CR>
 noremap <silent> [q :cprevious<CR>
 
 " ycm
-nnoremap <silent> ygd :YcmCompleter GoTo<CR>
+"nnoremap <silent> ygd :YcmCompleter GoTo<CR>
 
 " easy-align
 xmap ga <Plug>(EasyAlign)
@@ -232,14 +240,19 @@ nmap ga <Plug>(EasyAlign)
 
 " command mode key bindings
 cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
 cnoremap <C-F> <Right>
 cnoremap <C-B> <Left>
-cnoremap <M-B> <S-Left>
-cnoremap <M-F> <S-Right>
-cnoremap <M-D> <S-Right><C-W>
 
-nnoremap <silent> <leader>t :LeaderfBufTag<CR>
-nnoremap <silent> <leader>m :LeaderfMru<CR>
+inoremap <C-A> <Home>
+inoremap <C-E> <End>
+inoremap <C-F> <Right>
+inoremap <C-B> <Left>
+
+" unmap unused bind
+inoremap <C-@> <ESC>
+
+let g:tagbar_left = 1
 
 let g:jedi#force_py_version = '3.7'
 let g:jedi#popup_on_dot=0
