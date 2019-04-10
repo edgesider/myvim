@@ -125,30 +125,43 @@ endfunc
 
 if has('win32') && has('gui_running')
     call SetWin32Gui()
+    packadd! molokai
+    packadd! vim-surround
+    packadd! jedi-vim
+    packadd! ultisnips      " snippet
+    packadd! vim-snippets   " 常用snippet
+    packadd! delimitMate    " 括号、引号补全
+    packadd! nerdcommenter  " 注释
+    packadd! easy-align     " 对齐
+    packadd! vim-airline
+    " packadd! vim-gutentags
+    " packadd! gutentags_plus
+    packadd! LeaderF
 endif
 
 if !has('win32')
     set shell=/bin/bash
-endif
-scriptencoding utf8
+    packadd! vim-airline
+    packadd! LeaderF
+    packadd! molokai
+    packadd! vim-surround
+    packadd! jedi-vim
+    packadd! delimitMate    " 括号、引号补全
 
-" packadd! ycm
-" packadd! ale
-packadd! tagbar
-" packadd! nerdtree
-packadd! molokai
-packadd! vim-surround
-packadd! jedi-vim
-" packadd! indentLine     " 对齐线
-packadd! ultisnips      " snippet
-packadd! vim-snippets   " 常用snippet
-packadd! delimitMate    " 括号、引号补全
-packadd! nerdcommenter  " 注释
-packadd! easy-align     " 对齐
-packadd! vim-airline
-" packadd! vim-gutentags
-" packadd! gutentags_plus
-packadd! LeaderF
+    packadd! tagbar
+    packadd! ultisnips      " snippet
+    packadd! vim-snippets   " 常用snippet
+    packadd! nerdcommenter  " 注释
+    packadd! easy-align     " 对齐
+    " packadd! ycm
+    " packadd! ale
+    " packadd! nerdtree
+    " packadd! indentLine     " 对齐线
+    " packadd! vim-gutentags
+    " packadd! gutentags_plus
+endif
+
+scriptencoding utf8
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
