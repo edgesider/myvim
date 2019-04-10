@@ -21,13 +21,61 @@ endfunc
 
 " 查看模式保持光标在中间
 func! LookingMap()
-    nnoremap <buffer> j jzz
-    nnoremap <buffer> k kzz
-    nnoremap <buffer> G Gzz
-    nnoremap <buffer> <c-d> <c-d>zz
-    nnoremap <buffer> <c-u> <c-u>zz
+    try
+        nnoremap <buffer> j jzz
+        nnoremap <buffer> k kzz
+        nnoremap <buffer> G Gzz
+        nnoremap <buffer> <c-e> jzz
+        nnoremap <buffer> <c-y> kzz
+        nnoremap <buffer> <c-d> <c-d>zz
+        nnoremap <buffer> <c-u> <c-u>zz
+        nnoremap <buffer> * *zz
+        nnoremap <buffer> # #zz
+        nnoremap <buffer> <Down> <Down>zz
+        nnoremap <buffer> <Up> <Up>zz
+        vnoremap <buffer> j jzz
+        vnoremap <buffer> k kzz
+        vnoremap <buffer> G Gzz
+        vnoremap <buffer> <c-e> jzz
+        vnoremap <buffer> <c-y> kzz
+        vnoremap <buffer> <c-d> <c-d>zz
+        vnoremap <buffer> <c-u> <c-u>zz
+        vnoremap <buffer> * *zz
+        vnoremap <buffer> # #zz
+        vnoremap <buffer> <Down> <Down>zz
+        vnoremap <buffer> <Up> <Up>zz
+    endtry
+    set colorcolumn=0
+endfunc
+func! NonLookingMap()
+    try
+        nunmap <buffer> j
+        nunmap <buffer> k
+        nunmap <buffer> G
+        nunmap <buffer> <c-e>
+        nunmap <buffer> <c-y>
+        nunmap <buffer> <c-d>
+        nunmap <buffer> <c-u>
+        nunmap <buffer> *
+        nunmap <buffer> #
+        nunmap <buffer> <down>
+        nunmap <buffer> <up>
+        vunmap <buffer> j
+        vunmap <buffer> k
+        vunmap <buffer> G
+        vunmap <buffer> <c-e>
+        vunmap <buffer> <c-y>
+        vunmap <buffer> <c-d>
+        vunmap <buffer> <c-u>
+        vunmap <buffer> *
+        vunmap <buffer> #
+        vunmap <buffer> <down>
+        vunmap <buffer> <up>
+    endtry
+    set colorcolumn=100
 endfunc
 command Imlooking call LookingMap()
+command Imwriting call NonLookingMap()
 
 func! SaveSpace()
 py3 << EOF
@@ -125,43 +173,30 @@ endfunc
 
 if has('win32') && has('gui_running')
     call SetWin32Gui()
-    packadd! molokai
-    packadd! vim-surround
-    packadd! jedi-vim
-    packadd! ultisnips      " snippet
-    packadd! vim-snippets   " 常用snippet
-    packadd! delimitMate    " 括号、引号补全
-    packadd! nerdcommenter  " 注释
-    packadd! easy-align     " 对齐
-    packadd! vim-airline
-    " packadd! vim-gutentags
-    " packadd! gutentags_plus
-    packadd! LeaderF
 endif
 
 if !has('win32')
     set shell=/bin/bash
-    packadd! vim-airline
-    packadd! LeaderF
-    packadd! molokai
-    packadd! vim-surround
-    packadd! jedi-vim
-    packadd! delimitMate    " 括号、引号补全
-
-    packadd! tagbar
-    packadd! ultisnips      " snippet
-    packadd! vim-snippets   " 常用snippet
-    packadd! nerdcommenter  " 注释
-    packadd! easy-align     " 对齐
-    " packadd! ycm
-    " packadd! ale
-    " packadd! nerdtree
-    " packadd! indentLine     " 对齐线
-    " packadd! vim-gutentags
-    " packadd! gutentags_plus
 endif
-
 scriptencoding utf8
+
+" packadd! ycm
+" packadd! ale
+packadd! tagbar
+" packadd! nerdtree
+packadd! molokai
+packadd! vim-surround
+packadd! jedi-vim
+" packadd! indentLine     " 对齐线
+packadd! ultisnips      " snippet
+packadd! vim-snippets   " 常用snippet
+packadd! delimitMate    " 括号、引号补全
+packadd! nerdcommenter  " 注释
+packadd! easy-align     " 对齐
+packadd! vim-airline
+" packadd! vim-gutentags
+" packadd! gutentags_plus
+packadd! LeaderF
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
