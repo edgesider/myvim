@@ -177,6 +177,7 @@ endif
 
 if !has('win32')
     set shell=/bin/bash
+    set fileencodings=ucs-bom,utf-8,cp936,default,latin1
 endif
 scriptencoding utf8
 
