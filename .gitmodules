@@ -61,3 +61,12 @@
 [submodule "pack/plugins/opt/LeaderF"]
 	path = pack/plugins/opt/LeaderF
 	url = https://github.com/Yggdroot/LeaderF
+[submodule "pack/plugins/opt/papercolor-theme"]
+	path = pack/plugins/opt/papercolor-theme
+	url = https://github.com/NLKNguyen/papercolor-theme
+[submodule "pack/plugins/opt/python-syntax"]
+	path = pack/plugins/opt/python-syntax
+	url = https://github.com/hdima/python-syntax
+[submodule "pack/plugins/opt/c-syntax.vim"]
+	path = pack/plugins/opt/c-syntax.vim
+	url = https://github.com/NLKNguyen/c-syntax.vim
