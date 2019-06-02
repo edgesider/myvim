@@ -182,9 +182,12 @@ if !has('win32')
 endif
 scriptencoding utf8
 
+if !has('win32')
+    packadd! tagbar
+endif
+
 " packadd! ycm
 " packadd! ale
-packadd! tagbar
 " packadd! nerdtree
 packadd! molokai
 packadd! vim-surround
