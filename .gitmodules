@@ -34,9 +34,6 @@
 [submodule "pack/plugins/opt/vim-go"]
 	path = pack/plugins/opt/vim-go
 	url = https://github.com/fatih/vim-go
-[submodule "pack/plugins/opt/vim-powerline"]
-	path = pack/plugins/opt/vim-powerline
-	url = https://github.com/Lokaltog/vim-powerline
 [submodule "pack/plugins/opt/nerdtree"]
 	path = pack/plugins/opt/nerdtree
 	url = https://github.com/scrooloose/nerdtree
@@ -70,3 +67,6 @@
 [submodule "pack/plugins/opt/c-syntax.vim"]
 	path = pack/plugins/opt/c-syntax.vim
 	url = https://github.com/NLKNguyen/c-syntax.vim
+[submodule "pack/plugins/opt/easymotion"]
+	path = pack/plugins/opt/easymotion
+	url = https://github.com/easymotion/vim-easymotion

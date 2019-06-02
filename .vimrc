@@ -74,8 +74,8 @@ func! NonLookingMap()
     endtry
     set colorcolumn=100
 endfunc
-command Imlooking call LookingMap()
-command Imwriting call NonLookingMap()
+command! Imlooking call LookingMap()
+command! Imwriting call NonLookingMap()
 
 func! SaveSpace()
 py3 << EOF
@@ -170,6 +170,7 @@ packpath_list = vim.eval('&packpath').split(',')
 gen_doc_from_pack_folder(packpath_list[0])
 EOF
 endfunc
+command! Gendoc call GenDoc()
 
 if has('win32') && has('gui_running')
     call SetWin32Gui()
@@ -198,6 +199,8 @@ packadd! vim-airline
 " packadd! vim-gutentags
 " packadd! gutentags_plus
 packadd! LeaderF
+
+packadd! easymotion
 
 packadd! c-syntax.vim
 packadd! python-syntax
@@ -253,7 +256,7 @@ set foldmethod=indent " 折叠方式
 set foldlevelstart=100 " 默认不折叠
 set colorcolumn=100  " 80个字符处划线
 " set fillchars=vert:\   ' 将分割线设置为空格，末尾有空格，需要转义
-set wildmenu wildmode=longest,full" Ex模式下Tab键补全窗口
+set wildmenu wildmode=longest,full " Ex模式下Tab键补全窗口
 set clipboard=unnamed
 set completeopt=longest,menu
 set updatetime=100 " 及时写入swap文件，保证tagbar的及时更新
@@ -277,10 +280,6 @@ nnoremap <silent> <leader>m :LeaderfMru<CR>
 
 nnoremap <C-S> :w<CR>
 nnoremap <silent> <F5> :call RunOrCompile()<CR>
-
-" inline jump
-nnoremap <M-j> jzz
-nnoremap <M-k> kzz
 
 " 窗口切换
 nnoremap <C-J> <C-W><C-J>
@@ -320,6 +319,12 @@ nnoremap <C-C> "+yy
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
+" easy-motion
+map <leader><leader>l <Plug>(easymotion-lineforward)
+map <leader><leader>j <Plug>(easymotion-j)
+map <leader><leader>k <Plug>(easymotion-k)
+map <leader><leader>h <Plug>(easymotion-linebackward)
+
 " command mode key bindings
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
@@ -355,5 +360,8 @@ let g:Lf_PreviewResult = {
         \}
 
 autocmd Filetype json let g:indentLine_enabled = 0
+
+" let a match a and A, but A will only match A
+let g:EasyMotion_smartcase = 1
 
 " call GenDoc()
