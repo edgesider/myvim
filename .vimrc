@@ -1,9 +1,6 @@
-func! SetWin32Gui()
-    set encoding=utf8
-    set fileencoding=utf8
+func! SetGui()
     source $VIMRUNTIME/delmenu.vim
     source $VIMRUNTIME/menu.vim
-    set lines=30 columns=100
     set guioptions-=m
     set guioptions-=T
     set guioptions-=e
@@ -11,12 +8,23 @@ func! SetWin32Gui()
     set guioptions-=L
     set guioptions+=!
     set guioptions+=c
-    set guifont=consolas:h14
-    set guifontwide=黑体
     " 将所有的光标设置为白块不闪烁，然后单独设置visual模式的光标
     set guicursor=a:block-Cursor-blinkon0,v:block-Cursor
-    set pythonthreedll=python36.dll
     set backspace=indent,eol,start   " 任何时候都可以使用退格键
+endfunc
+
+func! SetWin32()
+    set encoding=utf8
+    set fileencoding=utf8
+    set lines=30 columns=100
+    set guifont=consolas:h14
+    set guifontwide=黑体
+    set pythonthreedll=python36.dll
+endfunc
+
+func! SetGtkGUI()
+    set guifont=Source\ Code\ Pro\ Medium\ 15
+    set guifontwide=黑体
 endfunc
 
 " 查看模式保持光标在中间
@@ -172,41 +180,23 @@ EOF
 endfunc
 command! Gendoc call GenDoc()
 
-if has('win32') && has('gui_running')
-    call SetWin32Gui()
-endif
-
-if !has('win32')
-    set shell=/bin/bash
-    set fileencodings=ucs-bom,utf-8,cp936,default,latin1
-endif
-scriptencoding utf8
-
-if !has('win32')
-    packadd! tagbar
-endif
-
-" packadd! ycm
-" packadd! ale
-" packadd! nerdtree
-packadd! molokai
 packadd! vim-surround
 packadd! jedi-vim
-" packadd! indentLine     " 对齐线
 packadd! ultisnips      " snippet
 packadd! vim-snippets   " 常用snippet
 packadd! delimitMate    " 括号、引号补全
 packadd! nerdcommenter  " 注释
 packadd! easy-align     " 对齐
 packadd! vim-airline
-" packadd! vim-gutentags
-" packadd! gutentags_plus
 packadd! LeaderF
-
 packadd! easymotion
-
 packadd! c-syntax.vim
 packadd! python-syntax
+
+if has('unix')
+    " windows 太卡了
+    packadd! tagbar
+endif
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
@@ -269,7 +259,7 @@ set noshowmode
 syntax enable " 开启语法高亮功能
 syntax on " 允许用指定语法高亮配色方案替换默认方案
 
-" 一些键盘映射
+" 键盘映射
 let mapleader=' ' "自定义前缀键
 let localleader=' ' "自定义前缀键
 nnoremap <silent> <leader>l :nohlsearch<CR>
@@ -278,7 +268,7 @@ nnoremap <silent> <leader>T :terminal fish<CR>
 nnoremap <silent> <leader>t :Tagbar<CR>
 
 " leaderF
-"nnoremap <silent> <leader>t :LeaderfBufTag<CR>
+nnoremap <silent> <leader>t :LeaderfBufTag<CR>
 nnoremap <silent> <leader>m :LeaderfMru<CR>
 
 nnoremap <C-S> :w<CR>
@@ -308,6 +298,7 @@ nnoremap [a :ALEPrevious<CR>
 nnoremap ]a :ALENext<CR>
 
 " quickfix
+noremap <silent> \q :copen<CR>
 noremap <silent> ]q :cnext<CR>
 noremap <silent> [q :cprevious<CR>
 
@@ -368,3 +359,22 @@ autocmd Filetype json let g:indentLine_enabled = 0
 let g:EasyMotion_smartcase = 1
 
 " call GenDoc()
+
+if !has('win32')
+    set shell=/bin/bash
+    set fileencodings=ucs-bom,utf-8,cp936,default,latin1
+endif
+scriptencoding utf8
+
+if has('gui_running')
+    call SetGui()
+
+    if has('win32') && has('gui_running')
+        call SetWin32Gui()
+    endif
+
+    if has('gui_gtk')
+        call SetGtkGUI()
+    endif
+endif
+
