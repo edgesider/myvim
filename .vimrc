@@ -370,7 +370,7 @@ if has('gui_running')
     call SetGui()
 
     if has('win32') && has('gui_running')
-        call SetWin32Gui()
+        call SetWin32()
     endif
 
     if has('gui_gtk')
