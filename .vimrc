@@ -358,6 +358,12 @@ autocmd Filetype json let g:indentLine_enabled = 0
 " let a match a and A, but A will only match A
 let g:EasyMotion_smartcase = 1
 
+if has('win32')
+    let g:UltiSnipsSnippetDirectories = ['~/vimfiles/ultisnips/']
+else
+    let g:UltiSnipsSnippetDirectories = ['~/.vim/ultisnips/']
+end
+
 " call GenDoc()
 
 if !has('win32')
