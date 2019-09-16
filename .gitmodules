@@ -70,3 +70,6 @@
 [submodule "pack/plugins/opt/easymotion"]
 	path = pack/plugins/opt/easymotion
 	url = https://github.com/easymotion/vim-easymotion
+[submodule "pack/plugins/opt/flake8"]
+	path = pack/plugins/opt/flake8
+	url = https://github.com/nvie/vim-flake8
