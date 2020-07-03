@@ -269,6 +269,7 @@ packadd! easymotion
 packadd! c-syntax.vim
 packadd! python-syntax
 packadd! flake8
+packadd! plantuml-syntax
 
 if has('unix')
     " windows 太卡了

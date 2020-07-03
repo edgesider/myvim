@@ -73,3 +73,6 @@
 [submodule "pack/plugins/opt/flake8"]
 	path = pack/plugins/opt/flake8
 	url = https://github.com/nvie/vim-flake8
+[submodule "pack/plugins/opt/plantuml-syntax"]
+	path = pack/plugins/opt/plantuml-syntax
+	url = https://github.com/aklt/plantuml-syntax
