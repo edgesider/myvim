@@ -76,3 +76,6 @@
 [submodule "pack/plugins/opt/plantuml-syntax"]
 	path = pack/plugins/opt/plantuml-syntax
 	url = https://github.com/aklt/plantuml-syntax
+[submodule "pack/plugins/opt/haskell-vim"]
+	path = pack/plugins/opt/haskell-vim
+	url = https://github.com/neovimhaskell/haskell-vim.git

@@ -214,6 +214,8 @@ func! RunOrCompile()
         call _RunInShell("csc % && mono ./%<.exe")
     elseif &filetype ==# 'javascript'
         call _RunInShell("node %")
+    elseif &filetype ==# 'haskell'
+        call _RunInShell("runhaskell %")
     endif
 endfunc
 
@@ -270,6 +272,7 @@ packadd! c-syntax.vim
 packadd! python-syntax
 packadd! flake8
 packadd! plantuml-syntax
+packadd! haskell-vim
 
 if has('unix')
     " windows 太卡了
@@ -333,6 +336,8 @@ set completeopt=longest,menu
 set updatetime=100 " 及时写入swap文件，保证tagbar的及时更新
 set ttimeoutlen=100 " 退出编辑模式不等待
 set noshowmode
+set mouse=a
+set ttymouse=xterm2
 
 syntax enable " 开启语法高亮功能
 syntax on " 允许用指定语法高亮配色方案替换默认方案
@@ -416,7 +421,7 @@ inoremap <C-@> <ESC>
 
 let g:tagbar_left = 1
 
-let g:jedi#force_py_version = '3.7'
+"let g:jedi#force_py_version = '3.8'
 let g:jedi#popup_on_dot=0
 
 let g:UltiSnipsExpandTrigger='<c-j>'  " ultisnip snip扩展快捷键
