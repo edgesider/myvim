@@ -166,7 +166,7 @@ func! ClearClosedTerm()
     let termbuf = []
     for bufid in filter(range(1, bufnr('$')), 'bufexists(v:val) && buflisted(v:val)')
         if getbufvar(bufid, '&buftype') == 'terminal'
-            call add(termbuf, bufid)
+            add(termbuf, bufid)
             "let cmd = cmd . string(bufid) . ","
         endif
     endfor
@@ -174,9 +174,9 @@ func! ClearClosedTerm()
     " get finished term
     let termfin = []
     for bufid in termbuf
-        let info = getbufvar(bufid, 'F5RUN')
+        let info = getbufvar(bufid, 'f5-term')
         if term_getstatus(bufid) == "finished" && len(info) != 0
-            call add(termfin, bufid)
+            add(termfin, bufid)
         endif
     endfor
 
@@ -186,49 +186,79 @@ func! ClearClosedTerm()
     endfor
 endfunc
 
+" buffer和terminal一对一
 func! _RunInShell(cmd)
+    let srcbuf = bufnr()
+    let srcinfo = getbufvar(srcbuf, 'f5src', {})
+    if len(srcinfo) > 0
+        let termbuf = get(srcinfo, 'termbuf')
+        if term_getstatus(termbuf) == 'finished'
+            execute termbuf . 'bd'
+        elseif term_getstatus(termbuf) == 'running'
+            echom 'still running'
+            return
+        endif
+    endif
+
     let cmd = expandcmd(a:cmd)
     exec 'w'
-    let info = {'bind_buf': buffer_number()}
-    let bufid = term_start(['bash', '-c', cmd], {'term_name': "F5: " . cmd})
-    call setbufvar(bufid, 'F5RUN', info)
-    "call setbufvar(bufid, '&bufhidden', 'hide')
+    let srcwin = win_getid()
+    let terminfo = {'srcbuf': srcbuf}
+    let termbuf = term_start(['bash', '-c', cmd], {'term_name': "F5: " . cmd, 'vertical': 1})
+    let termwin = win_getid()
+    let srcinfo = {'termbuf': termbuf}
+    call setbufvar(srcbuf, 'f5src', srcinfo)
+    call setbufvar(termbuf, 'f5term', terminfo)
+    call win_splitmove(termwin, srcwin, {'vertical': 1, 'rightbelow': 1})
 endfunc
 
 " 编译或运行
 func! RunOrCompile()
-    call ClearClosedTerm()
-    if &filetype ==# 'c'
-        call _RunInShell("gcc % -o %< && ./%<")
-    elseif &filetype ==# 'cpp'
-        call _RunInShell("g++ % -std=c++11 -o %< && ./%<")
-    elseif &filetype ==# 'python'
-        call _RunInShell("python %")
-    elseif &filetype ==# 'perl'
-        call _RunInShell("perl %")
-    elseif &filetype ==# 'sh'
-        call _RunInShell("bash %")
-    elseif &filetype ==# 'go'
-        call _RunInShell("go run %")
-    elseif &filetype ==# 'cs'
-        call _RunInShell("csc % && mono ./%<.exe")
-    elseif &filetype ==# 'javascript'
-        call _RunInShell("node %")
-    elseif &filetype ==# 'haskell'
-        call _RunInShell("runhaskell %")
+    let buftype = getbufvar(bufnr(), '&buftype')
+    if buftype == 'terminal'
+        let termbuf = bufnr()
+        if term_getstatus(termbuf) != 'finished' | return | endif
+
+        let terminfo = getbufvar(termbuf, 'f5term', {})
+        if len(terminfo) == 0 | echom 'no bound source'| return | endif
+        let srcbuf = get(terminfo, 'srcbuf')
+        if !srcbuf || !bufexists(srcbuf) | echom 'source buffer not exists' | return | endif
+        let srcwin = bufwinid(srcbuf)
+        if srcwin == -1 | echom 'source buffer hidden' | return | endif
+        call win_gotoid(srcwin)
+        call RunOrCompile()
+    elseif buftype == ''
+        if &filetype ==# 'c'
+            call _RunInShell("gcc % -o %< && ./%<")
+        elseif &filetype ==# 'cpp'
+            call _RunInShell("g++ % -std=c++11 -o %< && ./%<")
+        elseif &filetype ==# 'python'
+            call _RunInShell("python %")
+        elseif &filetype ==# 'perl'
+            call _RunInShell("perl %")
+        elseif &filetype ==# 'sh'
+            call _RunInShell("bash %")
+        elseif &filetype ==# 'go'
+            call _RunInShell("go run %")
+        elseif &filetype ==# 'cs'
+            call _RunInShell("csc % && mono ./%<.exe")
+        elseif &filetype ==# 'javascript'
+            call _RunInShell("node %")
+        elseif &filetype ==# 'haskell'
+            call _RunInShell("runhaskell %")
+        endif
     endif
 endfunc
 
 func! IsF5RunBuf(bid)
-    let info = getbufvar(a:bid, 'F5RUN')
-    return len(info) != 0
+    return len(getbufvar(a:bid, 'F5RUN')) != 0
 endfunc
 
 func! RunOrCompileInTermbuf()
     let bufid = buffer_number()
     if !IsF5RunBuf(bufid) | return | endif
     let info = getbufvar(bufid, 'F5RUN')
-    let bind_buf = get(info, 'bind_buf')
+    let bind_buf = get(info, 'srcbuf')
     let bind_win = win_findbuf(bind_buf)
     if len(bind_win) == 0 | echom "no bind source" | return | endif
     call win_gotoid(bind_win[0])
@@ -356,7 +386,7 @@ nnoremap <silent> <leader>m :LeaderfMru<CR>
 
 nnoremap <C-S> :call MySave()<CR>
 nnoremap <silent> <F5> :call RunOrCompile()<CR>
-tnoremap <silent> <C-W><F5> <C-W>:call RunOrCompileInTermbuf()<CR>
+tnoremap <silent> <C-W><F5> <C-W>:call RunOrCompile()<CR>
 
 " 窗口切换
 nnoremap <C-J> <C-W><C-J>
