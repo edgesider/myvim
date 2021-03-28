@@ -214,8 +214,8 @@ endfunc
 
 func! F5GetCommand(filetype)
     let cmd_tb = {
-    \    'c': 'gcc % -og %< && ./%<',
-    \    'cpp': 'g++ % -std=c++11 -og %< && ./%<',
+    \    'c': 'gcc % -g -o %< && ./%<',
+    \    'cpp': 'g++ % -std=c++11 -g -o %< && ./%<',
     \    'python': 'python %',
     \    'perl': 'perl %',
     \    'sh': 'sh %',
