@@ -346,6 +346,10 @@ inoremap <C-J> <C-X><C-O>
 " unmap unused bind
 inoremap <C-@> <ESC>
 
+let g:f5#cmds = {
+            \ 'c': 'gcc % -g -o %< -Wall && ./%<'
+            \ }
+
 let g:tagbar_left = 1
 
 "let g:jedi#force_py_version = '3.8'
