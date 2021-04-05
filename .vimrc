@@ -161,94 +161,6 @@ func! LoadLastSpace()
     endif
 endfunc
 
-func! F5ClearClosedTerm()
-    " get terminal buffers
-    let termbuf = []
-    for bufid in filter(range(1, bufnr('$')), 'bufexists(v:val) && buflisted(v:val)')
-        if getbufvar(bufid, '&buftype') == 'terminal'
-            add(termbuf, bufid)
-            "let cmd = cmd . string(bufid) . ","
-        endif
-    endfor
-
-    " get finished term
-    let termfin = []
-    for bufid in termbuf
-        let info = getbufvar(bufid, 'f5-term')
-        if term_getstatus(bufid) == "finished" && len(info) != 0
-            add(termfin, bufid)
-        endif
-    endfor
-
-    for bufid in termfin
-        let cmd = string(bufid) . "bd"
-        execute cmd
-    endfor
-endfunc
-
-func! F5RunInShell(cmd)
-    let curwin = 0
-    let srcbuf = bufnr()
-    let srcwin = win_getid()
-    let srcinfo = getbufvar(srcbuf, 'f5src', {})
-    if len(srcinfo) > 0
-        let termbuf = get(srcinfo, 'termbuf')
-        if term_getstatus(termbuf) == 'finished'
-            let curwin = 1
-            call win_gotoid(bufwinid(termbuf))
-        elseif term_getstatus(termbuf) == 'running'
-            echom 'still running'
-            return
-        endif
-    endif
-    let termbuf = term_start(['bash', '-c', a:cmd],
-                \ {'term_name': "F5: " . a:cmd, 'vertical': 1, 'curwin': curwin})
-    let termwin = win_getid()
-    if !curwin
-        call win_splitmove(termwin, srcwin, {'vertical': 1, 'rightbelow': 1})
-    endif
-
-    call setbufvar(srcbuf, 'f5src', {'termbuf': termbuf})
-    call setbufvar(termbuf, 'f5term', {'srcbuf': srcbuf})
-endfunc
-
-func! F5GetCommand(filetype)
-    let cmd_tb = {
-    \    'c': 'gcc % -g -o %< && ./%<',
-    \    'cpp': 'g++ % -std=c++11 -g -o %< && ./%<',
-    \    'python': 'python %',
-    \    'perl': 'perl %',
-    \    'sh': 'sh %',
-    \    'go': 'go run %',
-    \    'cs': 'csc % && mono ./%<.exe',
-    \    'javascript': 'node %',
-    \    'haskell': 'runhaskell %'
-    \}
-    return expandcmd(get(cmd_tb, a:filetype, ''))
-endfunc
-
-" 编译或运行
-" buffer和terminal一对一
-func! F5Run()
-    if getbufvar(bufnr(), '&buftype') == 'terminal'
-        let termbuf = bufnr()
-        if term_getstatus(termbuf) != 'finished' | return | endif
-
-        let terminfo = getbufvar(termbuf, 'f5term', {})
-        if len(terminfo) == 0 | echom 'no bound source'| return | endif
-        let srcbuf = get(terminfo, 'srcbuf')
-        if !srcbuf || !bufexists(srcbuf) | echom 'source buffer not exists' | return | endif
-        let srcwin = bufwinid(srcbuf)
-        if srcwin == -1 | echom 'source buffer hidden' | return | endif
-        call win_gotoid(srcwin)
-    endif
-
-    exec 'w'
-    let cmd = F5GetCommand(&filetype)
-    if len(cmd) == 0 | return | endif
-    call F5RunInShell(cmd)
-endfunc
-
 func! GenDoc()
 py3 << EOF
 import vim
@@ -287,6 +199,7 @@ packadd! python-syntax
 packadd! flake8
 packadd! plantuml-syntax
 packadd! haskell-vim
+packadd! f5run
 
 if has('unix')
     " windows 太卡了
@@ -369,8 +282,8 @@ nnoremap <silent> <leader>t :LeaderfBufTag<CR>
 nnoremap <silent> <leader>m :LeaderfMru<CR>
 
 nnoremap <C-S> :call MySave()<CR>
-nnoremap <silent> <F5> :call F5Run()<CR>
-tnoremap <silent> <C-W><F5> <C-W>:call F5Run()<CR>
+nnoremap <silent> <F5> :call f5#Run()<CR>
+tnoremap <silent> <C-W><F5> <C-W>:call f5#Run()<CR>
 
 " 窗口切换
 nnoremap <C-J> <C-W><C-J>

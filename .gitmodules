@@ -79,3 +79,6 @@
 [submodule "pack/plugins/opt/haskell-vim"]
 	path = pack/plugins/opt/haskell-vim
 	url = https://github.com/neovimhaskell/haskell-vim.git
+[submodule "pack/plugins/opt/f5run"]
+	path = pack/plugins/opt/f5run
+	url = https://github.com/edgesider/vim-f5run
