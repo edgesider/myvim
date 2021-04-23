@@ -200,6 +200,7 @@ packadd! flake8
 packadd! plantuml-syntax
 packadd! haskell-vim
 packadd! f5run
+packadd! vimtex
 
 if has('unix')
     " windows 太卡了
@@ -240,7 +241,7 @@ setlocal cryptmethod=blowfish2  " 设置加密方式
 set autoread
 set number
 set shiftwidth=4  "操作（<<和>>）时缩进的列数
-set tabstop=3    "tabstop 一个tab键所占的列数
+set tabstop=4    "tabstop 一个tab键所占的列数
 set expandtab   "输入tab时自动将其转化为空格
 set nowrap " 禁止折行
 set laststatus=2 " 显示光标当前位置
@@ -370,16 +371,14 @@ let g:Lf_PreviewResult = {
         \ 'Colorscheme': 0
         \}
 
+"let g:vimtex_quickfix_mode = 0
+let g:vimtex_compiler_latexmk = {'build_dir' : 'dist'}
+let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
+
 autocmd Filetype json let g:indentLine_enabled = 0
 
 " let a match a and A, but A will only match A
 let g:EasyMotion_smartcase = 1
-
-if has('win32')
-    let g:UltiSnipsSnippetDirectories = ['~/vimfiles/ultisnips/']
-else
-    let g:UltiSnipsSnippetDirectories = ['~/.vim/ultisnips/']
-end
 
 " call GenDoc()
 

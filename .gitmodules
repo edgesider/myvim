@@ -82,3 +82,6 @@
 [submodule "pack/plugins/opt/f5run"]
 	path = pack/plugins/opt/f5run
 	url = https://github.com/edgesider/vim-f5run
+[submodule "pack/plugins/opt/vimtex"]
+	path = pack/plugins/opt/vimtex
+	url = https://github.com/lervag/vimtex
