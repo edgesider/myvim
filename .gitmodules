@@ -85,3 +85,6 @@
 [submodule "pack/plugins/opt/vimtex"]
 	path = pack/plugins/opt/vimtex
 	url = https://github.com/lervag/vimtex
+[submodule "pack/plugins/opt/vim-fish"]
+	path = pack/plugins/opt/vim-fish
+	url = https://github.com/dag/vim-fish

@@ -194,13 +194,15 @@ packadd! easy-align     " 对齐
 packadd! vim-airline
 packadd! LeaderF
 packadd! easymotion
-packadd! c-syntax.vim
-packadd! python-syntax
 packadd! flake8
-packadd! plantuml-syntax
-packadd! haskell-vim
 packadd! f5run
 packadd! vimtex
+" 语法高亮
+packadd! python-syntax
+packadd! plantuml-syntax
+packadd! haskell-vim
+packadd! c-syntax.vim
+packadd! vim-fish
 
 if has('unix')
     " windows 太卡了
