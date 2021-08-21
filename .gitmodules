@@ -4,9 +4,6 @@
 [submodule "pack/plugins/opt/jedi-vim"]
 	path = pack/plugins/opt/jedi-vim
 	url = git://github.com/davidhalter/jedi-vim
-[submodule "pack/plugins/opt/vim-snippets"]
-	path = pack/plugins/opt/vim-snippets
-	url = https://github.com/honza/vim-snippets
 [submodule "pack/plugins/opt/fcitx.vim"]
 	path = pack/plugins/opt/fcitx.vim
 	url = git://github.com/lilydjwg/fcitx.vim
@@ -88,3 +85,12 @@
 [submodule "pack/plugins/opt/vim-fish"]
 	path = pack/plugins/opt/vim-fish
 	url = https://github.com/dag/vim-fish
+[submodule "pack/plugins/opt/vim-lsp"]
+	path = pack/plugins/opt/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp
+[submodule "pack/plugins/opt/vim-lsp-settings"]
+	path = pack/plugins/opt/vim-lsp-settings
+	url = https://github.com/mattn/vim-lsp-settings
+[submodule "pack/plugins/opt/my-snippets"]
+	path = pack/plugins/opt/my-snippets
+	url = git@github.com:edgesider/vim-snippets.git

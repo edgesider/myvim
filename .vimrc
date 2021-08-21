@@ -187,7 +187,7 @@ command! Gendoc call GenDoc()
 packadd! vim-surround
 packadd! jedi-vim
 packadd! ultisnips      " snippet
-packadd! vim-snippets   " 常用snippet
+packadd! my-snippets    " 常用snippet
 packadd! delimitMate    " 括号、引号补全
 packadd! nerdcommenter  " 注释
 packadd! easy-align     " 对齐
