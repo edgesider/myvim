@@ -262,12 +262,13 @@ set colorcolumn=100  " 80个字符处划线
 " set fillchars=vert:\   ' 将分割线设置为空格，末尾有空格，需要转义
 set wildmenu wildmode=longest,full " Ex模式下Tab键补全窗口
 set clipboard=unnamed
-set completeopt=longest,menu
+set completeopt=longest,menu,noinsert,noselect
 set updatetime=100 " 及时写入swap文件，保证tagbar的及时更新
 set ttimeoutlen=100 " 退出编辑模式不等待
 set noshowmode
 set mouse=a
 set ttymouse=xterm2
+set backspace=indent,eol,start
 
 syntax enable " 开启语法高亮功能
 syntax on " 允许用指定语法高亮配色方案替换默认方案

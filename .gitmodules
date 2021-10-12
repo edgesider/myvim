@@ -94,3 +94,6 @@
 [submodule "pack/plugins/opt/my-snippets"]
 	path = pack/plugins/opt/my-snippets
 	url = git@github.com:edgesider/vim-snippets.git
+[submodule "pack/plugins/opt/vim-orgmode"]
+	path = pack/plugins/opt/vim-orgmode
+	url = https://github.com/jceb/vim-orgmode
