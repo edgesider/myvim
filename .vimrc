@@ -117,6 +117,50 @@ func! FTMarkDown()
     nnoremap <buffer> k gk
 endfunc
 
+" 设置keycode以支持终端中map alt键
+function! Terminal_MetaMode(mode)
+    set ttimeout
+    if $TMUX != ''
+        set ttimeoutlen=30
+    elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
+        set ttimeoutlen=80
+    endif
+    if has('nvim') || has('gui_running')
+        return
+    endif
+    function! s:metacode(mode, key)
+        if a:mode == 0
+            exec "set <M-".a:key.">=\e".a:key
+        else
+            exec "set <M-".a:key.">=\e]{0}".a:key."~"
+        endif
+    endfunc
+    for i in range(10)
+        call s:metacode(a:mode, nr2char(char2nr('0') + i))
+    endfor
+    for i in range(26)
+        call s:metacode(a:mode, nr2char(char2nr('a') + i))
+        call s:metacode(a:mode, nr2char(char2nr('A') + i))
+    endfor
+    if a:mode != 0
+        for c in [',', '.', '/', ';', '[', ']', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    else
+        for c in [',', '.', '/', ';', '{', '}']
+            call s:metacode(a:mode, c)
+        endfor
+        for c in ['?', ':', '-', '_']
+            call s:metacode(a:mode, c)
+        endfor
+    endif
+endfunc
+
+call Terminal_MetaMode(0)
+
 func! SaveSpace()
 py3 << EOF
 import vim
@@ -264,8 +308,6 @@ set wildmenu wildmode=longest,full " Ex模式下Tab键补全窗口
 set clipboard=unnamed
 set completeopt=longest,menu,noinsert,noselect
 set updatetime=100 " 及时写入swap文件，保证tagbar的及时更新
-set ttimeoutlen=100 " 退出编辑模式不等待
-set noshowmode
 set mouse=a
 set ttymouse=xterm2
 set backspace=indent,eol,start
@@ -282,8 +324,13 @@ nnoremap <silent> <leader>T :terminal fish<CR>
 nnoremap <silent> <leader>t :Tagbar<CR>
 
 " leaderF
-nnoremap <silent> <leader>t :LeaderfBufTag<CR>
-nnoremap <silent> <leader>m :LeaderfMru<CR>
+command Lf command LeaderF
+nnoremap <silent> <leader>t :Leaderf! buftag<CR>
+nnoremap <silent> <leader>m :Leaderf! mru<CR>
+nnoremap <silent> <leader>f :Leaderf! file<CR>
+nnoremap <silent> <leader>g :Leaderf! gtags<CR>
+nnoremap <silent> <leader>w :Leaderf! window<CR>
+nnoremap <silent> <leader>q :Leaderf! quickfix<CR>
 
 nnoremap <C-S> :call MySave()<CR>
 nnoremap <silent> <F5> :call f5#Run()<CR>
