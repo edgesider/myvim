@@ -241,6 +241,7 @@ packadd! easymotion
 packadd! flake8
 packadd! f5run
 packadd! vimtex
+packadd! gen_tags
 " 语法高亮
 packadd! python-syntax
 packadd! plantuml-syntax
@@ -261,8 +262,8 @@ set sessionoptions+=resize
 set sessionoptions+=winsize
 set sessionoptions+=unix
 set sessionoptions+=slash
-nnoremap <silent> <C-F9> :call SaveSpace()<CR>
-nnoremap <silent> <C-F10> :call LoadSpace()<CR>
+nnoremap <silent> <c-f9> :call SaveSpace()<cr>
+nnoremap <silent> <c-f10> :call LoadSpace()<cr>
 
 "colorscheme molokai
 let g:PaperColor_Theme_Options = {
@@ -306,11 +307,12 @@ set colorcolumn=100  " 80个字符处划线
 " set fillchars=vert:\   ' 将分割线设置为空格，末尾有空格，需要转义
 set wildmenu wildmode=longest,full " Ex模式下Tab键补全窗口
 set clipboard=unnamed
-set completeopt=longest,menu,noinsert,noselect
+set completeopt=longest,menu,noselect
 set updatetime=100 " 及时写入swap文件，保证tagbar的及时更新
 set mouse=a
 set ttymouse=xterm2
 set backspace=indent,eol,start
+set noshowcmd
 
 syntax enable " 开启语法高亮功能
 syntax on " 允许用指定语法高亮配色方案替换默认方案
@@ -318,84 +320,87 @@ syntax on " 允许用指定语法高亮配色方案替换默认方案
 " 键盘映射
 let mapleader=' ' "自定义前缀键
 let localleader=' ' "自定义前缀键
-nnoremap <silent> <leader>l :nohlsearch<CR>
+nnoremap <silent> <leader>l :nohlsearch<cr>
 
-nnoremap <silent> <leader>T :terminal fish<CR>
-nnoremap <silent> <leader>t :Tagbar<CR>
+nnoremap <silent> <leader>T :terminal fish<cr>
+nnoremap <silent> <leader>t :Tagbar<cr>
 
 " leaderF
 command Lf command LeaderF
-nnoremap <silent> <leader>t :Leaderf! buftag<CR>
-nnoremap <silent> <leader>m :Leaderf! mru<CR>
-nnoremap <silent> <leader>f :Leaderf! file<CR>
-nnoremap <silent> <leader>g :Leaderf! gtags<CR>
-nnoremap <silent> <leader>w :Leaderf! window<CR>
-nnoremap <silent> <leader>q :Leaderf! quickfix<CR>
+nnoremap <silent> <leader>t :Leaderf! buftag<cr>
+nnoremap <silent> <leader>m :Leaderf! mru<cr>
+nnoremap <silent> <leader>f :Leaderf! file<cr>
+nnoremap <silent> <leader>g :Leaderf! gtags<cr>
+nnoremap <silent> <leader>w :Leaderf! window<cr>
+nnoremap <silent> <leader>q :Leaderf! quickfix<cr>
 
-nnoremap <C-S> :call MySave()<CR>
-nnoremap <silent> <F5> :call f5#Run()<CR>
-tnoremap <silent> <C-W><F5> <C-W>:call f5#Run()<CR>
+nnoremap <c-s> :call MySave()<cr>
+nnoremap <silent> <f5> :call f5#Run()<cr>
+tnoremap <silent> <c-w><f5> <c-w>:call f5#Run()<cr>
 
 " 窗口切换
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
+nnoremap <c-h> <c-w><c-h>
 
 " buffer切换
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-tnoremap <silent> <C-W>[b <C-W>:bprevious<CR>
-tnoremap <silent> <C-W>]b <C-W>:bnext<CR>
+nnoremap <silent> [b :bprevious<cr>
+nnoremap <silent> ]b :bnext<cr>
+tnoremap <silent> <c-w>[b <c-w>:bprevious<cr>
+tnoremap <silent> <c-w>]b <c-w>:bnext<cr>
 
 " 标签页切换
-nnoremap <silent> \t :tabnew .<CR>
-nnoremap <silent> [t :tabprevious<CR>
-nnoremap <silent> ]t :tabnext<CR>
-tnoremap <silent> <C-W>[t <C-W>:tabprevious<CR>
-tnoremap <silent> <C-W>]t <C-W>:tabnext<CR>
+nnoremap <silent> \t :tabnew .<cr>
+nnoremap <silent> [t :tabprevious<cr>
+nnoremap <silent> ]t :tabnext<cr>
+tnoremap <silent> <c-w>[t <c-w>:tabprevious<cr>
+tnoremap <silent> <c-w>]t <c-w>:tabnext<cr>
 
 " ale lint切换
-nnoremap [a :ALEPrevious<CR>
-nnoremap ]a :ALENext<CR>
+nnoremap [a :ALEPrevious<cr>
+nnoremap ]a :ALENext<cr>
 
 " quickfix
-noremap <silent> \q :copen<CR>
-noremap <silent> ]q :cnext<CR>
-noremap <silent> [q :cprevious<CR>
+noremap <silent> \q :copen<cr>
+noremap <silent> ]q :cnext<cr>
+noremap <silent> [q :cprevious<cr>
 
 " copy
-vnoremap <C-C> "+y
-nnoremap <C-C> "+yy
+vnoremap <c-c> "+y
+nnoremap <c-c> "+yy
 
 " ycm
-"nnoremap <silent> ygd :YcmCompleter GoTo<CR>
+"nnoremap <silent> ygd :YcmCompleter GoTo<cr>
 
 " easy-align
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
+xmap ga <plug>(EasyAlign)
+nmap ga <plug>(EasyAlign)
 
 " easy-motion
-map <leader><leader>l <Plug>(easymotion-lineforward)
-map <leader><leader>j <Plug>(easymotion-j)
-map <leader><leader>k <Plug>(easymotion-k)
-map <leader><leader>h <Plug>(easymotion-linebackward)
+map <leader><leader>l <plug>(easymotion-lineforward)
+map <leader><leader>j <plug>(easymotion-j)
+map <leader><leader>k <plug>(easymotion-k)
+map <leader><leader>h <plug>(easymotion-linebackward)
 
 " command mode key bindings
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-cnoremap <C-F> <Right>
-cnoremap <C-B> <Left>
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+cnoremap <c-f> <right>
+cnoremap <c-b> <left>
+cnoremap <m-f> <c-right>
+cnoremap <m-b> <c-left>
 
-inoremap <C-A> <Home>
-inoremap <C-E> <End>
-inoremap <C-F> <Right>
-inoremap <C-B> <Left>
-
-inoremap <C-J> <C-X><C-O>
+inoremap <c-a> <home>
+inoremap <c-e> <end>
+inoremap <c-f> <right>
+inoremap <c-b> <left>
+inoremap <m-f> <c-right>
+inoremap <m-b> <c-left>
+inoremap <c-j> <c-x><c-o>
 
 " unmap unused bind
-inoremap <C-@> <ESC>
+"inoremap <c-@> <esc>
 
 let g:f5#cmds = {
             \ 'c': 'gcc % -g -o %< -Wall && ./%<'
