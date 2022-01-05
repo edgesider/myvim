@@ -241,13 +241,14 @@ packadd! easymotion
 packadd! flake8
 packadd! f5run
 packadd! vimtex
-packadd! gen_tags
+" packadd! gen_tags
 " 语法高亮
 packadd! python-syntax
 packadd! plantuml-syntax
 packadd! haskell-vim
 packadd! c-syntax.vim
 packadd! vim-fish
+packadd! coc.nvim
 
 if has('unix')
     " windows 太卡了
@@ -357,10 +358,6 @@ nnoremap <silent> ]t :tabnext<cr>
 tnoremap <silent> <c-w>[t <c-w>:tabprevious<cr>
 tnoremap <silent> <c-w>]t <c-w>:tabnext<cr>
 
-" ale lint切换
-nnoremap [a :ALEPrevious<cr>
-nnoremap ]a :ALENext<cr>
-
 " quickfix
 noremap <silent> \q :copen<cr>
 noremap <silent> ]q :cnext<cr>
@@ -370,18 +367,33 @@ noremap <silent> [q :cprevious<cr>
 vnoremap <c-c> "+y
 nnoremap <c-c> "+yy
 
-" ycm
-"nnoremap <silent> ygd :YcmCompleter GoTo<cr>
+" coc
+nmap gd <plug>(coc-declaration)
+nmap gD <plug>(coc-definition)
+nmap gi <plug>(coc-implementation)
+nmap gu <plug>(coc-references)
+nmap <leader>r <plug>(coc-rename)
+nmap <leader>; :CocFix<cr>
+nmap <leader>l <plug>(coc-format)
+nmap ]c <plug>(coc-diagnostic-next)
+nmap [c <plug>(coc-diagnostic-prev)
+nmap ]e <plug>(coc-diagnostic-next-error)
+nmap [e <plug>(coc-diagnostic-prev-error)
+nmap \c :CocList diagnostics<cr>
+nmap \o :CocList outline<cr>
+
+command! -nargs=0 Fmt :call CocAction('format')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " easy-align
 xmap ga <plug>(EasyAlign)
 nmap ga <plug>(EasyAlign)
 
 " easy-motion
-map <leader><leader>l <plug>(easymotion-lineforward)
-map <leader><leader>j <plug>(easymotion-j)
-map <leader><leader>k <plug>(easymotion-k)
-map <leader><leader>h <plug>(easymotion-linebackward)
+" map <leader><leader>l <plug>(easymotion-lineforward)
+" map <leader><leader>j <plug>(easymotion-j)
+" map <leader><leader>k <plug>(easymotion-k)
+" map <leader><leader>h <plug>(easymotion-linebackward)
 
 " command mode key bindings
 cnoremap <c-a> <home>

@@ -94,3 +94,6 @@
 [submodule "pack/plugins/opt/my-snippets"]
 	path = pack/plugins/opt/my-snippets
 	url = git@github.com:edgesider/vim-snippets.git
+[submodule "pack/plugins/opt/coc.nvim"]
+	path = pack/plugins/opt/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
