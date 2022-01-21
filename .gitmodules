@@ -28,9 +28,6 @@
 [submodule "pack/plugins/opt/vimcdoc"]
 	path = pack/plugins/opt/vimcdoc
 	url = https://github.com/yianwillis/vimcdoc.git
-[submodule "pack/plugins/opt/vim-go"]
-	path = pack/plugins/opt/vim-go
-	url = https://github.com/fatih/vim-go
 [submodule "pack/plugins/opt/nerdtree"]
 	path = pack/plugins/opt/nerdtree
 	url = https://github.com/scrooloose/nerdtree
@@ -40,12 +37,6 @@
 [submodule "pack/plugins/opt/unite-outline"]
 	path = pack/plugins/opt/unite-outline
 	url = https://github.com/Shougo/unite-outline
-[submodule "pack/plugins/opt/easy-align"]
-	path = pack/plugins/opt/easy-align
-	url = https://github.com/junegunn/vim-easy-align
-[submodule "pack/plugins/opt/ale"]
-	path = pack/plugins/opt/ale
-	url = https://github.com/w0rp/ale
 [submodule "pack/plugins/opt/vim-gutentags"]
 	path = pack/plugins/opt/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
@@ -67,9 +58,6 @@
 [submodule "pack/plugins/opt/easymotion"]
 	path = pack/plugins/opt/easymotion
 	url = https://github.com/easymotion/vim-easymotion
-[submodule "pack/plugins/opt/flake8"]
-	path = pack/plugins/opt/flake8
-	url = https://github.com/nvie/vim-flake8
 [submodule "pack/plugins/opt/plantuml-syntax"]
 	path = pack/plugins/opt/plantuml-syntax
 	url = https://github.com/aklt/plantuml-syntax

@@ -17,10 +17,7 @@ func! TabToSpace()
 endfunc
 command TabToSpace call TabToSpace()
 
-func! MySave()
-    call TrimRight()
-    write
-endfunc
+autocmd BufWritePre * call TrimRight()
 
 func! SetGui()
     source $VIMRUNTIME/delmenu.vim
@@ -229,16 +226,13 @@ endfunc
 command! Gendoc call GenDoc()
 
 packadd! vim-surround
-packadd! jedi-vim
 packadd! ultisnips      " snippet
 packadd! my-snippets    " 常用snippet
 packadd! delimitMate    " 括号、引号补全
 packadd! nerdcommenter  " 注释
-packadd! easy-align     " 对齐
 packadd! vim-airline
 packadd! LeaderF
 packadd! easymotion
-packadd! flake8
 packadd! f5run
 packadd! vimtex
 " packadd! gen_tags
@@ -249,11 +243,6 @@ packadd! haskell-vim
 packadd! c-syntax.vim
 packadd! vim-fish
 packadd! coc.nvim
-
-if has('unix')
-    " windows 太卡了
-    packadd! tagbar
-endif
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
@@ -266,22 +255,22 @@ set sessionoptions+=slash
 nnoremap <silent> <c-f9> :call SaveSpace()<cr>
 nnoremap <silent> <c-f10> :call LoadSpace()<cr>
 
-"colorscheme molokai
-let g:PaperColor_Theme_Options = {
-  \   'language': {
-  \     'python': {
-  \       'highlight_builtins' : 1
-  \     },
-  \     'cpp': {
-  \       'highlight_standard_library': 1
-  \     },
-  \     'c': {
-  \       'highlight_builtins' : 1
-  \     }
-  \   }
-  \ }
-set background=dark
-colorscheme PaperColor
+" let g:PaperColor_Theme_Options = {
+"   \   'language': {
+"   \     'python': {
+"   \       'highlight_builtins' : 1
+"   \     },
+"   \     'cpp': {
+"   \       'highlight_standard_library': 1
+"   \     },
+"   \     'c': {
+"   \       'highlight_builtins' : 1
+"   \     }
+"   \   }
+"   \ }
+" set background=dark
+" colorscheme PaperColor
+colorscheme jellybeans
 
 "自动补全
 filetype plugin indent on
@@ -304,12 +293,11 @@ set smartindent
 set foldmethod=indent " 折叠方式
 " set foldcolumn=2    ' 折叠层次显示
 set foldlevelstart=100 " 默认不折叠
-set colorcolumn=100  " 80个字符处划线
+set colorcolumn=100  " 100个字符处划线
 " set fillchars=vert:\   ' 将分割线设置为空格，末尾有空格，需要转义
 set wildmenu wildmode=longest,full " Ex模式下Tab键补全窗口
 set clipboard=unnamed
 set completeopt=longest,menu,noselect
-set updatetime=100 " 及时写入swap文件，保证tagbar的及时更新
 set mouse=a
 set ttymouse=xterm2
 set backspace=indent,eol,start
@@ -324,18 +312,16 @@ let localleader=' ' "自定义前缀键
 nnoremap <silent> <leader>l :nohlsearch<cr>
 
 nnoremap <silent> <leader>T :terminal fish<cr>
-nnoremap <silent> <leader>t :Tagbar<cr>
 
 " leaderF
 command Lf command LeaderF
-nnoremap <silent> <leader>t :Leaderf! buftag<cr>
 nnoremap <silent> <leader>m :Leaderf! mru<cr>
 nnoremap <silent> <leader>f :Leaderf! file<cr>
 nnoremap <silent> <leader>g :Leaderf! gtags<cr>
 nnoremap <silent> <leader>w :Leaderf! window<cr>
 nnoremap <silent> <leader>q :Leaderf! quickfix<cr>
 
-nnoremap <c-s> :call MySave()<cr>
+nnoremap <c-s> :w<cr>
 nnoremap <silent> <f5> :call f5#Run()<cr>
 tnoremap <silent> <c-w><f5> <c-w>:call f5#Run()<cr>
 
@@ -368,26 +354,27 @@ vnoremap <c-c> "+y
 nnoremap <c-c> "+yy
 
 " coc
-nmap gd <plug>(coc-declaration)
-nmap gD <plug>(coc-definition)
+nmap gd <plug>(coc-definition)
+nmap gD <plug>(coc-declaration)
 nmap gi <plug>(coc-implementation)
 nmap gu <plug>(coc-references)
 nmap <leader>r <plug>(coc-rename)
 nmap <leader>; :CocFix<cr>
-nmap <leader>l <plug>(coc-format)
+" nmap <leader>l <plug>(coc-format)
 nmap ]c <plug>(coc-diagnostic-next)
 nmap [c <plug>(coc-diagnostic-prev)
 nmap ]e <plug>(coc-diagnostic-next-error)
 nmap [e <plug>(coc-diagnostic-prev-error)
 nmap \c :CocList diagnostics<cr>
 nmap \o :CocList outline<cr>
+nmap <leader>e :CocCommand explorer<CR>
 
 command! -nargs=0 Fmt :call CocAction('format')
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " easy-align
-xmap ga <plug>(EasyAlign)
-nmap ga <plug>(EasyAlign)
+" xmap ga <plug>(EasyAlign)
+" nmap ga <plug>(EasyAlign)
 
 " easy-motion
 " map <leader><leader>l <plug>(easymotion-lineforward)
@@ -418,8 +405,6 @@ let g:f5#cmds = {
             \ 'c': 'gcc % -g -o %< -Wall && ./%<'
             \ }
 
-let g:tagbar_left = 1
-
 "let g:jedi#force_py_version = '3.8'
 let g:jedi#popup_on_dot=0
 
@@ -444,8 +429,9 @@ let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 
 autocmd Filetype json let g:indentLine_enabled = 0
 
-" let a match a and A, but A will only match A
 let g:EasyMotion_smartcase = 1
+
+let g:airline#extensions#coc#enabled = 1
 
 " call GenDoc()
 
