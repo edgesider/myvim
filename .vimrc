@@ -17,7 +17,7 @@ func! TabToSpace()
 endfunc
 command TabToSpace call TabToSpace()
 
-autocmd BufWritePre * call TrimRight()
+"autocmd BufWritePre * call TrimRight()
 
 func! SetGui()
     source $VIMRUNTIME/delmenu.vim
@@ -137,7 +137,7 @@ function! Terminal_MetaMode(mode)
     endfor
     for i in range(26)
         call s:metacode(a:mode, nr2char(char2nr('a') + i))
-        call s:metacode(a:mode, nr2char(char2nr('A') + i))
+        "call s:metacode(a:mode, nr2char(char2nr('A') + i))
     endfor
     if a:mode != 0
         for c in [',', '.', '/', ';', '[', ']', '{', '}']
@@ -235,6 +235,7 @@ packadd! LeaderF
 packadd! easymotion
 packadd! f5run
 packadd! vimtex
+packadd! coc.nvim
 " packadd! gen_tags
 " 语法高亮
 packadd! python-syntax
@@ -242,7 +243,7 @@ packadd! plantuml-syntax
 packadd! haskell-vim
 packadd! c-syntax.vim
 packadd! vim-fish
-packadd! coc.nvim
+packadd! vala.vim
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
@@ -255,22 +256,22 @@ set sessionoptions+=slash
 nnoremap <silent> <c-f9> :call SaveSpace()<cr>
 nnoremap <silent> <c-f10> :call LoadSpace()<cr>
 
-" let g:PaperColor_Theme_Options = {
-"   \   'language': {
-"   \     'python': {
-"   \       'highlight_builtins' : 1
-"   \     },
-"   \     'cpp': {
-"   \       'highlight_standard_library': 1
-"   \     },
-"   \     'c': {
-"   \       'highlight_builtins' : 1
-"   \     }
-"   \   }
-"   \ }
-" set background=dark
-" colorscheme PaperColor
-colorscheme jellybeans
+let g:PaperColor_Theme_Options = {
+  \   'language': {
+  \     'python': {
+  \       'highlight_builtins' : 1
+  \     },
+  \     'cpp': {
+  \       'highlight_standard_library': 1
+  \     },
+  \     'c': {
+  \       'highlight_builtins' : 1
+  \     }
+  \   }
+  \ }
+set background=dark
+colorscheme PaperColor
+"colorscheme jellybeans
 
 "自动补全
 filetype plugin indent on
@@ -315,11 +316,11 @@ nnoremap <silent> <leader>T :terminal fish<cr>
 
 " leaderF
 command Lf command LeaderF
-nnoremap <silent> <leader>m :Leaderf! mru<cr>
-nnoremap <silent> <leader>f :Leaderf! file<cr>
-nnoremap <silent> <leader>g :Leaderf! gtags<cr>
-nnoremap <silent> <leader>w :Leaderf! window<cr>
-nnoremap <silent> <leader>q :Leaderf! quickfix<cr>
+nnoremap <silent> <leader>m :Leaderf mru<cr>
+nnoremap <silent> <leader>f :Leaderf file<cr>
+nnoremap <silent> <leader>g :Leaderf gtags<cr>
+nnoremap <silent> <leader>w :Leaderf window<cr>
+nnoremap <silent> <leader>q :Leaderf quickfix<cr>
 
 nnoremap <c-s> :w<cr>
 nnoremap <silent> <f5> :call f5#Run()<cr>
@@ -367,9 +368,10 @@ nmap ]e <plug>(coc-diagnostic-next-error)
 nmap [e <plug>(coc-diagnostic-prev-error)
 nmap \c :CocList diagnostics<cr>
 nmap \o :CocList outline<cr>
-nmap <leader>e :CocCommand explorer<CR>
+nmap \e :CocCommand explorer<CR>
 
 command! -nargs=0 Fmt :call CocAction('format')
+set updatetime=1000
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " easy-align
@@ -454,4 +456,4 @@ if has('gui_running')
 endif
 
 autocmd FileType markdown call FTMarkDown()
-autocmd FileType asm :set filetype=nasm
+"autocmd FileType asm :set filetype=nasm

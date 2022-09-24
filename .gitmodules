@@ -85,3 +85,6 @@
 [submodule "pack/plugins/opt/coc.nvim"]
 	path = pack/plugins/opt/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
+[submodule "pack/plugins/opt/vala.vim"]
+	path = pack/plugins/opt/vala.vim
+	url = git@github.com:arrufat/vala.vim.git
