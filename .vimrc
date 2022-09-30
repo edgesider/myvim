@@ -361,6 +361,7 @@ nmap gi <plug>(coc-implementation)
 nmap gu <plug>(coc-references)
 nmap <leader>r <plug>(coc-rename)
 nmap <leader>; :CocFix<cr>
+nmap <leader>' :CocAction<cr>
 " nmap <leader>l <plug>(coc-format)
 nmap ]c <plug>(coc-diagnostic-next)
 nmap [c <plug>(coc-diagnostic-prev)
@@ -398,7 +399,6 @@ inoremap <c-f> <right>
 inoremap <c-b> <left>
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
-inoremap <c-j> <c-x><c-o>
 
 " unmap unused bind
 "inoremap <c-@> <esc>
