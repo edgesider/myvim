@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "coc-clangd": ">=0.18.2",
+    "coc-css": ">=2.0.0",
+    "coc-eslint": ">=1.5.2",
+    "coc-explorer": ">=0.20.2",
+    "coc-html": ">=1.5.1",
+    "coc-json": ">=1.4.0",
+    "coc-kotlin": ">=0.0.7",
+    "coc-lua": ">=1.0.1",
+    "coc-pyright": ">=1.1.194",
+    "coc-sh": ">=0.6.1",
+    "coc-svg": ">=0.0.13",
+    "coc-tsserver": ">=1.9.4",
+    "coc-vimlsp": ">=0.12.5",
+    "coc-xml": ">=1.14.1",
+    "coc-highlight": ">=2.0.4"
+  },
+  "disabled": [],
+  "locked": []
+}

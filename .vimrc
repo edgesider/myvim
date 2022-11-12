@@ -1,3 +1,5 @@
+source $VIMRUNTIME/vimrc_example.vim
+
 func! TrimRight()
     try
         %s/\s\+$//
@@ -241,9 +243,10 @@ packadd! coc.nvim
 packadd! python-syntax
 packadd! plantuml-syntax
 packadd! haskell-vim
-packadd! c-syntax.vim
+"packadd! c-syntax.vim
 packadd! vim-fish
 packadd! vala.vim
+packadd! sonokai
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
@@ -269,9 +272,14 @@ let g:PaperColor_Theme_Options = {
   \     }
   \   }
   \ }
-set background=dark
-colorscheme PaperColor
+"set background=dark
+"colorscheme PaperColor
 "colorscheme jellybeans
+let g:sonokai_style = 'default' " default, atlantis, andromeda, shusia, maia, espresso
+let g:sonokai_better_performance = 1
+let g:sonokai_transparent_background = 1
+let g:sonokai_diagnostic_text_highlight = 1
+colorscheme sonokai
 
 "自动补全
 filetype plugin indent on
@@ -445,7 +453,6 @@ autocmd Filetype json let g:indentLine_enabled = 0
 let g:EasyMotion_smartcase = 1
 
 let g:airline#extensions#coc#enabled = 1
-let g:coc_default_semantic_highlight_groups=1
 
 " call GenDoc()
 

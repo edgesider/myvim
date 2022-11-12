@@ -88,3 +88,6 @@
 [submodule "pack/plugins/opt/vala.vim"]
 	path = pack/plugins/opt/vala.vim
 	url = git@github.com:arrufat/vala.vim.git
+[submodule "pack/plugins/opt/sonokai"]
+	path = pack/plugins/opt/sonokai
+	url = https://github.com/sainnhe/sonokai.git
