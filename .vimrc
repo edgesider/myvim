@@ -360,9 +360,10 @@ nmap gD <plug>(coc-declaration)
 nmap gi <plug>(coc-implementation)
 nmap gu <plug>(coc-references)
 nmap <leader>r <plug>(coc-rename)
-nmap <leader>; :CocFix<cr>
-nmap <leader>' :CocAction<cr>
-" nmap <leader>l <plug>(coc-format)
+nmap <leader>; <plug>(coc-fix-current)
+nmap <leader>' <plug>(coc-codeaction-selected)<cr>
+nmap <leader>p :CocList command<cr>
+ nmap <leader><leader>l <plug>(coc-format)
 nmap ]c <plug>(coc-diagnostic-next)
 nmap [c <plug>(coc-diagnostic-prev)
 nmap ]e <plug>(coc-diagnostic-next-error)
@@ -371,7 +372,17 @@ nmap \c :CocList diagnostics<cr>
 nmap \o :CocList outline<cr>
 nmap \e :CocCommand explorer<CR>
 
-command! -nargs=0 Fmt :call CocAction('format')
+" text objects
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+command! -nargs=0 Fmt :call CocActionAsync('format')
 set updatetime=1000
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -434,6 +445,7 @@ autocmd Filetype json let g:indentLine_enabled = 0
 let g:EasyMotion_smartcase = 1
 
 let g:airline#extensions#coc#enabled = 1
+let g:coc_default_semantic_highlight_groups=1
 
 " call GenDoc()
 

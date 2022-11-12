@@ -2,7 +2,19 @@
     "languageserver": {
         "vala": {
             "command": "vala-language-server",
-            "filetypes": ["vala", "genie"]
+            "filetypes": [
+                "vala",
+                "genie"
+            ]
         }
-    }
+    },
+    "clangd.arguments": [
+        "-j=10",
+        "--clang-tidy",
+        "--clang-tidy-checks=performance-*,bugprone-*",
+        "--background-index",
+        "--completion-style=detailed",
+        "--all-scopes-completion"
+    ],
+    "semanticTokens.enable": true
 }
