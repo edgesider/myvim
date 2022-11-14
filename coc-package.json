@@ -12,10 +12,11 @@
     "coc-sh": ">=0.6.1",
     "coc-svg": ">=0.0.13",
     "coc-tsserver": ">=1.9.4",
-    "coc-vimlsp": ">=0.12.5",
+    "coc-vimlsp": ">=0.12.8",
     "coc-xml": ">=1.14.1",
     "coc-highlight": ">=2.0.4"
   },
   "disabled": [],
-  "locked": []
+  "locked": [],
+  "lastUpdate": 1668421799760
 }

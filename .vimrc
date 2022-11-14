@@ -1,4 +1,29 @@
-source $VIMRUNTIME/vimrc_example.vim
+" TODO 配置按照插件拆开
+
+" 状态保存相关
+func! SetupStateSave()
+    " 备份文件
+    set backupdir=/tmp/vimbak
+    call mkdir(&backupdir, 'p')
+    set backup
+
+    " undo文件
+    set undolevels=200
+    set undodir=~/.cache/vim/undo
+    call mkdir(&undodir, 'p')
+    set undofile
+
+    " *Copied from $VIMRUNTIME/defaults.vim*
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid, when inside an event handler
+    " (happens when dropping a file on gvim) and for a commit message (it's
+    " likely a different one than last time).
+    autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ |   exe "normal! g`\""
+      \ | endif
+endfunc
+call SetupStateSave()
 
 func! TrimRight()
     try
@@ -7,6 +32,7 @@ func! TrimRight()
     catch
     endtry
 endfunc
+autocmd BufWritePre * call TrimRight()
 
 func! TabToSpace()
     let space = " "->repeat(&tabstop)
@@ -18,8 +44,6 @@ func! TabToSpace()
     endtry
 endfunc
 command TabToSpace call TabToSpace()
-
-"autocmd BufWritePre * call TrimRight()
 
 func! SetGui()
     source $VIMRUNTIME/delmenu.vim
@@ -234,11 +258,13 @@ packadd! delimitMate    " 括号、引号补全
 packadd! nerdcommenter  " 注释
 packadd! vim-airline
 packadd! LeaderF
-packadd! easymotion
+"packadd! easymotion
 packadd! f5run
 packadd! vimtex
 packadd! coc.nvim
 " packadd! gen_tags
+packadd! sonokai
+
 " 语法高亮
 packadd! python-syntax
 packadd! plantuml-syntax
@@ -246,7 +272,6 @@ packadd! haskell-vim
 "packadd! c-syntax.vim
 packadd! vim-fish
 packadd! vala.vim
-packadd! sonokai
 
 set sessionoptions-=curdir
 set sessionoptions+=sesdir
@@ -260,30 +285,43 @@ nnoremap <silent> <c-f9> :call SaveSpace()<cr>
 nnoremap <silent> <c-f10> :call LoadSpace()<cr>
 
 let g:PaperColor_Theme_Options = {
-  \   'language': {
-  \     'python': {
-  \       'highlight_builtins' : 1
-  \     },
-  \     'cpp': {
-  \       'highlight_standard_library': 1
-  \     },
-  \     'c': {
-  \       'highlight_builtins' : 1
-  \     }
-  \   }
-  \ }
+            \   'language': {
+            \     'python': {
+            \       'highlight_builtins' : 1
+            \     },
+            \     'cpp': {
+            \       'highlight_standard_library': 1
+            \     },
+            \     'c': {
+            \       'highlight_builtins' : 1
+            \     }
+            \   }
+            \ }
 "set background=dark
 "colorscheme PaperColor
 "colorscheme jellybeans
-let g:sonokai_style = 'default' " default, atlantis, andromeda, shusia, maia, espresso
-let g:sonokai_better_performance = 1
-let g:sonokai_transparent_background = 1
-let g:sonokai_diagnostic_text_highlight = 1
-colorscheme sonokai
+
+func! UseSonokai()
+    let g:sonokai_style = 'default' " default, atlantis, andromeda, shusia, maia, espresso
+    let g:sonokai_better_performance = 1
+    let g:sonokai_transparent_background = 1
+    let g:sonokai_diagnostic_text_highlight = 1
+    colorscheme sonokai
+
+    let conf = sonokai#get_configuration()
+    let palette = sonokai#get_palette(conf.style, conf.colors_override)
+
+    " TODO 交换mod颜色
+    " let tmp = g:airline#themes#sonokai#palette.insert.airline_a
+    " let g:airline#themes#sonokai#palette.insert.airline_a =
+    " \ g:airline#themes#sonokai#palette.normal.airline_a
+    " let g:airline#themes#sonokai#palette.normal.airline_a = tmp
+endfunc
+call UseSonokai()
 
 "自动补全
 filetype plugin indent on
-setlocal cryptmethod=blowfish2  " 设置加密方式
+set cryptmethod=blowfish2  " 设置加密方式
 set autoread
 set number
 set shiftwidth=4  "操作（<<和>>）时缩进的列数
@@ -311,6 +349,7 @@ set mouse=a
 set ttymouse=xterm2
 set backspace=indent,eol,start
 set noshowcmd
+set title
 
 syntax enable " 开启语法高亮功能
 syntax on " 允许用指定语法高亮配色方案替换默认方案
@@ -323,7 +362,6 @@ nnoremap <silent> <leader>l :nohlsearch<cr>
 nnoremap <silent> <leader>T :terminal fish<cr>
 
 " leaderF
-command Lf command LeaderF
 nnoremap <silent> <leader>m :Leaderf mru<cr>
 nnoremap <silent> <leader>f :Leaderf file<cr>
 nnoremap <silent> <leader>g :Leaderf gtags<cr>
@@ -390,19 +428,9 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-command! -nargs=0 Fmt :call CocActionAsync('format')
+"command! -nargs=0 Fmt :call CocActionAsync('format')
 set updatetime=1000
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" easy-align
-" xmap ga <plug>(EasyAlign)
-" nmap ga <plug>(EasyAlign)
-
-" easy-motion
-" map <leader><leader>l <plug>(easymotion-lineforward)
-" map <leader><leader>j <plug>(easymotion-j)
-" map <leader><leader>k <plug>(easymotion-k)
-" map <leader><leader>h <plug>(easymotion-linebackward)
 
 " command mode key bindings
 cnoremap <c-a> <home>
@@ -426,9 +454,6 @@ let g:f5#cmds = {
             \ 'c': 'gcc % -g -o %< -Wall && ./%<'
             \ }
 
-"let g:jedi#force_py_version = '3.8'
-let g:jedi#popup_on_dot=0
-
 let g:UltiSnipsExpandTrigger='<c-j>'  " ultisnip snip扩展快捷键
 let g:UltiSnipsEditSplit='vertical'   " ultisnip 编辑模式横向窗口打开
 
@@ -447,10 +472,6 @@ let g:Lf_PreviewResult = {
 "let g:vimtex_quickfix_mode = 0
 let g:vimtex_compiler_latexmk = {'build_dir' : 'dist'}
 let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
-
-autocmd Filetype json let g:indentLine_enabled = 0
-
-let g:EasyMotion_smartcase = 1
 
 let g:airline#extensions#coc#enabled = 1
 
@@ -474,5 +495,14 @@ if has('gui_running')
     endif
 endif
 
-autocmd FileType markdown call FTMarkDown()
+"autocmd FileType markdown call FTMarkDown()
 "autocmd FileType asm :set filetype=nasm
+autocmd Filetype json let g:indentLine_enabled = 0
+
+" *Copied from $VIMRUNTIME/defaults.vim*
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+" Revert with: ":delcommand DiffOrig".
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+            \ | wincmd p | diffthis | wincmd p | nnoremap <buffer> q :q<cr>

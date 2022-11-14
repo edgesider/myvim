@@ -17,5 +17,5 @@
         "--all-scopes-completion"
     ],
     "semanticTokens.enable": true,
-    "colors.enable": true
+    "python.pythonPath": "/usr/local/bin/python3.10",
 }
