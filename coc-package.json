@@ -14,7 +14,8 @@
     "coc-tsserver": ">=1.9.4",
     "coc-vimlsp": ">=0.12.8",
     "coc-xml": ">=1.14.1",
-    "coc-highlight": ">=2.0.4"
+    "coc-highlight": ">=2.0.4",
+    "coc-snippets": ">=3.1.4"
   },
   "disabled": [],
   "locked": [],

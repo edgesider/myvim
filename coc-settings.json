@@ -18,4 +18,5 @@
     ],
     "semanticTokens.enable": true,
     "python.pythonPath": "/usr/local/bin/python3.10",
+    "suggest.noselect": true
 }

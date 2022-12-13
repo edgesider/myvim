@@ -4,15 +4,6 @@ source ~/.vim/theme.vim
 source ~/.vim/ft.vim
 source ~/.vim/gui.vim
 
-call SetupStateSave()
-call Terminal_MetaMode(0)
-autocmd BufWritePre * call TrimRight()
-command TabToSpace call TabToSpace()
-command Imlooking call LookingMap()
-command Imwriting call NonLookingMap()
-command Gendoc call GenDoc()
-command! DiffOrig call DiffOrig() " *Copied from $VIMRUNTIME/defaults.vim*
-
 packadd! vim-surround
 packadd! ultisnips      " snippet
 packadd! my-snippets    " 常用snippet
@@ -24,10 +15,14 @@ packadd! f5run
 packadd! vimtex
 packadd! coc.nvim
 
+call SetupStateSave()
+call Terminal_MetaMode(0)
 call theme#Sonokai()
 
 "自动补全
 filetype plugin indent on
+syntax enable " 开启语法高亮功能
+syntax on " 允许用指定语法高亮配色方案替换默认方案
 set cryptmethod=blowfish2  " 设置加密方式
 set autoread
 set number
@@ -48,21 +43,27 @@ set foldmethod=indent " 折叠方式
 " set foldcolumn=2    ' 折叠层次显示
 set foldlevelstart=100 " 默认不折叠
 set colorcolumn=100  " 100个字符处划线
-" set fillchars=vert:\   ' 将分割线设置为空格，末尾有空格，需要转义
 set wildmenu wildmode=longest,full " Ex模式下Tab键补全窗口
 set clipboard=unnamed
-set completeopt=longest,menu,noselect
+set completeopt=longest,menu
 set mouse=a
 set ttymouse=xterm2
 set backspace=indent,eol,start
 set noshowcmd
 set title
 set scrolloff=5
+set updatetime=1000
 
-syntax enable " 开启语法高亮功能
-syntax on " 允许用指定语法高亮配色方案替换默认方案
+autocmd BufNewFile,BufRead *.ll set ft=llvm
+autocmd BufWritePre * call TrimRight()
+command TabToSpace call TabToSpace()
+command Imlooking call LookingMap()
+command Imwriting call NonLookingMap()
+command Gendoc call GenDoc()
+command DiffOrig call DiffOrig() " *Copied from $VIMRUNTIME/defaults.vim*
 
 " Plugin settings {{{
+let NERDSpaceDelims = 1
 let g:f5#cmds = {
             \ 'c': 'gcc % -g -o %< -Wall && ./%<'
             \ }
@@ -158,6 +159,7 @@ nmap [e <plug>(coc-diagnostic-prev-error)
 nmap \c :CocList diagnostics<cr>
 nmap \o :CocList outline<cr>
 nmap \e :CocCommand explorer<CR>
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " text objects
 xmap if <Plug>(coc-funcobj-i)
@@ -168,10 +170,6 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
-
-"command! -nargs=0 Fmt :call CocActionAsync('format')
-set updatetime=1000
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " command mode key bindings
 cnoremap <c-a> <home>
