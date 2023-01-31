@@ -20,10 +20,10 @@
 	path = pack/plugins/opt/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter
 [submodule "pack/plugins/opt/vim-surround"]
-	path = pack/plugins/opt/vim-surround
+	path = pack/plugins/opt/surround
 	url = git://github.com/tpope/vim-surround
 [submodule "pack/plugins/opt/vim-airline"]
-	path = pack/plugins/opt/vim-airline
+	path = pack/plugins/opt/airline
 	url = git://github.com/vim-airline/vim-airline
 [submodule "pack/plugins/opt/vimcdoc"]
 	path = pack/plugins/opt/vimcdoc
@@ -62,7 +62,7 @@
 	path = pack/plugins/opt/plantuml-syntax
 	url = https://github.com/aklt/plantuml-syntax
 [submodule "pack/plugins/opt/haskell-vim"]
-	path = pack/plugins/opt/haskell-vim
+	path = pack/plugins/opt/haskell-syntax
 	url = https://github.com/neovimhaskell/haskell-vim.git
 [submodule "pack/plugins/opt/f5run"]
 	path = pack/plugins/opt/f5run
@@ -71,7 +71,7 @@
 	path = pack/plugins/opt/vimtex
 	url = https://github.com/lervag/vimtex
 [submodule "pack/plugins/opt/vim-fish"]
-	path = pack/plugins/opt/vim-fish
+	path = pack/plugins/opt/fish-syntax
 	url = https://github.com/dag/vim-fish
 [submodule "pack/plugins/opt/vim-lsp"]
 	path = pack/plugins/opt/vim-lsp
@@ -83,10 +83,10 @@
 	path = pack/plugins/opt/my-snippets
 	url = git@github.com:edgesider/vim-snippets.git
 [submodule "pack/plugins/opt/coc.nvim"]
-	path = pack/plugins/opt/coc.nvim
+	path = pack/plugins/opt/coc
 	url = https://github.com/neoclide/coc.nvim
 [submodule "pack/plugins/opt/vala.vim"]
-	path = pack/plugins/opt/vala.vim
+	path = pack/plugins/opt/vala-syntax
 	url = git@github.com:arrufat/vala.vim.git
 [submodule "pack/plugins/opt/sonokai"]
 	path = pack/plugins/opt/sonokai

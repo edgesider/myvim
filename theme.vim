@@ -1,10 +1,10 @@
 " 语法高亮
 packadd! python-syntax
 packadd! plantuml-syntax
-packadd! haskell-vim
+packadd! haskell-syntax
 "packadd! c-syntax.vim
-packadd! vim-fish
-packadd! vala.vim
+packadd! fish-syntax
+packadd! vala-syntax
 
 "set background=dark
 

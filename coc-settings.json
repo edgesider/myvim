@@ -16,6 +16,7 @@
         "--completion-style=detailed",
         "--all-scopes-completion"
     ],
+    "inlayHint.enable": false,
     "semanticTokens.enable": true,
     "python.pythonPath": "/usr/local/bin/python3.10",
     "suggest.noselect": true

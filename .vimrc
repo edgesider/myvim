@@ -4,16 +4,28 @@ source ~/.vim/theme.vim
 source ~/.vim/ft.vim
 source ~/.vim/gui.vim
 
-packadd! vim-surround
-packadd! ultisnips      " snippet
-packadd! my-snippets    " 常用snippet
-packadd! delimitMate    " 括号、引号补全
-packadd! nerdcommenter  " 注释
-packadd! vim-airline
-packadd! LeaderF
-packadd! f5run
-packadd! vimtex
-packadd! coc.nvim
+let g:plugins = {
+            \ 'surround': 1,
+            \ 'ultisnips': 1,
+            \ 'my-snippets': 1,
+            \ 'delimitMate': 1,
+            \ 'nerdcommenter': 1,
+            \ 'airline': 1,
+            \ 'LeaderF': 1,
+            \ 'f5run': 1,
+            \ 'vimtex': 1,
+            \ 'coc': 1,
+            \ }
+
+func! g:PluginEnabled(name)
+    return has_key(g:plugins, a:name)
+endf
+
+for [name, enabled] in items(g:plugins)
+    if enabled
+        exec 'packadd! ' .. name
+    endif
+endfor
 
 call SetupStateSave()
 call Terminal_MetaMode(0)
@@ -32,7 +44,7 @@ set expandtab   "输入tab时自动将其转化为空格
 set nowrap " 禁止折行
 set laststatus=2 " 显示光标当前位置
 set number
-set cursorline cursorcolumn " 高亮显示当前行/列
+set cursorcolumn " 高亮显示当前行/列
 set hlsearch " 高亮显示搜索结果
 set incsearch " 实时搜索
 set showcmd    " 右下角按键显示
@@ -47,7 +59,7 @@ set wildmenu wildmode=longest,full " Ex模式下Tab键补全窗口
 set clipboard=unnamed
 set completeopt=longest,menu
 set mouse=a
-set ttymouse=xterm2
+set ttymouse=sgr
 set backspace=indent,eol,start
 set noshowcmd
 set title
@@ -66,7 +78,7 @@ command DiffOrig call DiffOrig() " *Copied from $VIMRUNTIME/defaults.vim*
 let NERDSpaceDelims = 1
 let g:f5#cmds = {
             \ 'c': 'gcc % -g -o %< -Wall && ./%<'
-            \ }
+            \}
 
 let g:UltiSnipsExpandTrigger='<c-j>'  " ultisnip snip扩展快捷键
 let g:UltiSnipsEditSplit='vertical'   " ultisnip 编辑模式横向窗口打开
@@ -142,34 +154,63 @@ noremap <silent> [q :cprevious<cr>
 vnoremap <c-c> "+y
 nnoremap <c-c> "+yy
 
-" coc
-nmap gd <plug>(coc-definition)
-nmap gD <plug>(coc-declaration)
-nmap gi <plug>(coc-implementation)
-nmap gu <plug>(coc-references)
-nmap <leader>r <plug>(coc-rename)
-nmap <leader>; <plug>(coc-fix-current)
-nmap <leader>' <plug>(coc-codeaction-selected)<cr>
-nmap <leader>p :CocList command<cr>
-nmap <leader><leader>l <plug>(coc-format)
-nmap ]c <plug>(coc-diagnostic-next)
-nmap [c <plug>(coc-diagnostic-prev)
-nmap ]e <plug>(coc-diagnostic-next-error)
-nmap [e <plug>(coc-diagnostic-prev-error)
-nmap \c :CocList diagnostics<cr>
-nmap \o :CocList outline<cr>
-nmap \e :CocCommand explorer<CR>
-autocmd CursorHold * silent call CocActionAsync('highlight')
+if PluginEnabled('coc')
+    " coc
+    nmap gd <plug>(coc-definition)
+    nmap gD <plug>(coc-declaration)
+    nmap gi <plug>(coc-implementation)
+    nmap gu <plug>(coc-references)
+    nmap <leader>r <plug>(coc-rename)
+    nmap <leader>; <plug>(coc-fix-current)
+    nmap <leader>' <plug>(coc-codeaction-selected)<cr>
+    nmap <leader>p :CocList command<cr>
+    nmap <leader><leader>l <plug>(coc-format)
+    nmap ]c <plug>(coc-diagnostic-next)
+    nmap [c <plug>(coc-diagnostic-prev)
+    nmap ]e <plug>(coc-diagnostic-next-error)
+    nmap [e <plug>(coc-diagnostic-prev-error)
+    nmap \c :CocList diagnostics<cr>
+    nmap \o :CocList outline<cr>
+    nmap \e :CocCommand explorer<CR>
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" text objects
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+    function! CheckBackspace() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1] =~# '\s'
+    endfunction
+
+    " Tab/S-Tab for completion
+    inoremap <silent><expr> <tab>
+          \ coc#pum#visible() ? coc#pum#next(1) :
+          \ CheckBackspace() ? "\<tab>" :
+          \ coc#refresh()
+    inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<c-h>"
+
+    function! ShowDocumentation()
+      if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+      else
+        call feedkeys('K', 'in')
+      endif
+    endfunction
+
+    nnoremap <silent> K :call ShowDocumentation()<cr>
+
+    nnoremap <nowait><expr> <m-j> coc#float#has_scroll() ? coc#float#scroll(1,1) : ""
+    nnoremap <nowait><expr> <m-k> coc#float#has_scroll() ? coc#float#scroll(0,1) : ""
+    inoremap <nowait><expr> <m-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1,1)\<cr>" : ""
+    inoremap <nowait><expr> <m-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0,1)\<cr>" : ""
+
+    " text objects
+    xmap if <Plug>(coc-funcobj-i)
+    omap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap af <Plug>(coc-funcobj-a)
+    xmap ic <Plug>(coc-classobj-i)
+    omap ic <Plug>(coc-classobj-i)
+    xmap ac <Plug>(coc-classobj-a)
+    omap ac <Plug>(coc-classobj-a)
+endif
 
 " command mode key bindings
 cnoremap <c-a> <home>
