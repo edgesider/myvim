@@ -154,6 +154,9 @@ noremap <silent> [q :cprevious<cr>
 vnoremap <c-c> "+y
 nnoremap <c-c> "+yy
 
+" search in visual mode
+vnoremap // y/\v<c-r>=escape(@",'/\')<cr><cr>
+
 if PluginEnabled('coc')
     " coc
     nmap gd <plug>(coc-definition)
