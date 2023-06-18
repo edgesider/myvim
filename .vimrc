@@ -151,8 +151,13 @@ noremap <silent> ]q :cnext<cr>
 noremap <silent> [q :cprevious<cr>
 
 " copy
-vnoremap <c-c> "+y
-nnoremap <c-c> "+yy
+if $XDG_SESSION_TYPE == "wayland"
+    vnoremap <silent> <c-c> :normal "+y<cr>:call system('wl-copy', @+)<cr>
+    nnoremap <silent> <c-c> :normal "+yy<cr>:call system('wl-copy', @+)<cr>
+else
+    vnoremap <c-c> "+y
+    nnoremap <c-c> "+yy
+endif
 
 " search in visual mode
 vnoremap // y/\v<c-r>=escape(@",'/\')<cr><cr>
