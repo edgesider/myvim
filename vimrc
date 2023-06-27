@@ -111,7 +111,7 @@ scriptencoding utf8
 " 键盘映射 {{{
 let mapleader=' ' "自定义前缀键
 let localleader=' ' "自定义前缀键
-nnoremap <silent> <leader>l :nohlsearch<cr>
+" nnoremap <silent> <leader>l :nohlsearch<cr>
 nnoremap <silent> <esc> :nohlsearch<cr><esc>
 nnoremap <silent> <leader>T :terminal fish<cr>
 
