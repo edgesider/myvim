@@ -18,7 +18,7 @@
     ],
     "inlayHint.enable": false,
     "semanticTokens.enable": true,
-    "python.pythonPath": "/usr/local/bin/python3.10",
+    // "python.pythonPath": "/usr/local/bin/python3.10",
     "suggest.noselect": true,
     "snippets.ultisnips.pythonPrompt": false
 }

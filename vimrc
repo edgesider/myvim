@@ -152,8 +152,8 @@ noremap <silent> [q :cprevious<cr>
 
 " copy
 if $XDG_SESSION_TYPE == "wayland"
-    vnoremap <silent> <c-c> :normal "+y<cr>:call system('wl-copy', @+)<cr>
-    nnoremap <silent> <c-c> :normal "+yy<cr>:call system('wl-copy', @+)<cr>
+    vnoremap <silent> <c-c> "+y:call system('wl-copy', @+)<cr>
+    nnoremap <silent> <c-c> "+yy:call system('wl-copy', @+)<cr>
 else
     vnoremap <c-c> "+y
     nnoremap <c-c> "+yy
