@@ -31,7 +31,7 @@ call SetupStateSave()
 call Terminal_MetaMode(0)
 call theme#Sonokai()
 
-"自动补全
+" 自动补全
 filetype plugin indent on
 syntax enable " 开启语法高亮功能
 syntax on " 允许用指定语法高亮配色方案替换默认方案
@@ -100,6 +100,10 @@ let g:vimtex_compiler_latexmk = {'build_dir' : 'dist'}
 let g:vimtex_compiler_latexmk_engines = {'_': '-xelatex'}
 
 let g:airline#extensions#coc#enabled = 1
+
+let g:NERDCustomDelimiters = {
+      \ 'python': { 'left': '#', 'right': '' }
+      \ }
 
 if !has('win32')
     set shell=/bin/bash
