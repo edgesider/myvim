@@ -32,8 +32,8 @@ set ignorecase
 set hlsearch
 set incsearch
 
-" nnoremap <leader>l :nohlsearch<cr>
 nnoremap <esc> :nohlsearch<cr><esc>
+nnoremap <c-[> :nohlsearch<cr><esc>
 
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
