@@ -73,6 +73,7 @@ command Imlooking call LookingMap()
 command Imwriting call NonLookingMap()
 command Gendoc call GenDoc()
 command DiffOrig call DiffOrig() " *Copied from $VIMRUNTIME/defaults.vim*
+command Wq wq
 
 " Plugin settings {{{
 let NERDSpaceDelims = 1
