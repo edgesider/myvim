@@ -193,11 +193,13 @@ if PluginEnabled('coc')
     endfunction
 
     " Tab/S-Tab for completion
-    inoremap <silent><expr> <tab>
-          \ coc#pum#visible() ? coc#pum#next(1) :
-          \ CheckBackspace() ? "\<tab>" :
-          \ coc#refresh()
-    inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<c-h>"
+    " inoremap <silent><expr> <tab>
+          " \ coc#pum#visible() ? coc#pum#next(1) :
+          " \ CheckBackspace() ? "\<tab>" :
+          " \ coc#refresh()
+    " inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<c-h>"
+    inoremap <expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<cr>"
+    inoremap <m-p> <c-\><c-o>:call CocActionAsync('showSignatureHelp')<cr>
 
     function! ShowDocumentation()
       if CocAction('hasProvider', 'hover')
