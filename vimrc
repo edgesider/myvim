@@ -57,7 +57,7 @@ set foldlevelstart=100 " 默认不折叠
 set colorcolumn=100  " 100个字符处划线
 set wildmenu wildmode=longest,full " Ex模式下Tab键补全窗口
 set clipboard=unnamed
-set completeopt=longest,menu
+" set completeopt=longest,menu
 set mouse=a
 set ttymouse=sgr
 set backspace=indent,eol,start
@@ -198,7 +198,7 @@ if PluginEnabled('coc')
           " \ CheckBackspace() ? "\<tab>" :
           " \ coc#refresh()
     " inoremap <expr><s-tab> coc#pum#visible() ? coc#pum#prev(1) : "\<c-h>"
-    inoremap <expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<cr>"
+    inoremap <expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "<tab>"
     inoremap <m-p> <c-\><c-o>:call CocActionAsync('showSignatureHelp')<cr>
 
     function! ShowDocumentation()
