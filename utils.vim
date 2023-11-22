@@ -19,7 +19,7 @@ endfunc
 " 状态保存相关
 func! SetupStateSave()
     " 备份文件
-    set backupdir=/tmp/vimbak
+    set backupdir=~/.cache/vim/bak
     call mkdir(&backupdir, 'p')
     set backup
 
