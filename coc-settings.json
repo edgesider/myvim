@@ -19,6 +19,6 @@
     "inlayHint.enable": false,
     "semanticTokens.enable": true,
     // "python.pythonPath": "/usr/local/bin/python3.10",
-    "suggest.noselect": true,
+    "python.formatting.provider": "black",
     "snippets.ultisnips.pythonPrompt": false
 }
