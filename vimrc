@@ -177,7 +177,7 @@ if PluginEnabled('coc')
     nmap <leader>; <plug>(coc-fix-current)
     nmap <leader>' <plug>(coc-codeaction-selected)<cr>
     nmap <leader>p :CocList command<cr>
-    nmap <leader><leader>l <plug>(coc-format)
+    nmap <leader>l <plug>(coc-format)
     nmap ]c <plug>(coc-diagnostic-next)
     nmap [c <plug>(coc-diagnostic-prev)
     nmap ]e <plug>(coc-diagnostic-next-error)
