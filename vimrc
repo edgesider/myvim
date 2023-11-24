@@ -18,6 +18,9 @@ let g:plugins = {
             \ }
 
 func! g:PluginEnabled(name)
+    if &loadplugins == 0
+        return 0
+    endif
     return has_key(g:plugins, a:name)
 endf
 
