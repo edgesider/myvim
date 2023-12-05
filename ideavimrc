@@ -47,3 +47,4 @@ inoremap <c-b> <left>
 
 vnoremap = :action ReformatCode<cr><esc>
 
+Plug 'tpope/vim-surround'
