@@ -172,6 +172,7 @@ vnoremap // y/\v<c-r>=escape(@",'/\')<cr><cr>
 
 if PluginEnabled('coc')
     " coc
+    nmap <c-]> <plug>(coc-definition)
     nmap gd <plug>(coc-definition)
     nmap gD <plug>(coc-declaration)
     nmap gi <plug>(coc-implementation)
