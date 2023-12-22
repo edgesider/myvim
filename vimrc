@@ -239,6 +239,8 @@ cnoremap <c-f> <right>
 cnoremap <c-b> <left>
 cnoremap <m-f> <c-right>
 cnoremap <m-b> <c-left>
+cnoremap <m-right> <c-right>
+cnoremap <m-left> <c-left>
 
 inoremap <c-a> <home>
 inoremap <c-e> <end>
@@ -246,6 +248,8 @@ inoremap <c-f> <right>
 inoremap <c-b> <left>
 inoremap <m-f> <c-right>
 inoremap <m-b> <c-left>
+inoremap <m-right> <c-right>
+inoremap <m-left> <c-left>
 
 " unmap unused bind
 "inoremap <c-@> <esc>
