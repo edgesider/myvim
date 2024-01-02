@@ -216,10 +216,10 @@ if PluginEnabled('coc')
 
     nnoremap <silent> K :call ShowDocumentation()<cr>
 
-    nnoremap <nowait><expr> <m-j> coc#float#has_scroll() ? coc#float#scroll(1,1) : ""
-    nnoremap <nowait><expr> <m-k> coc#float#has_scroll() ? coc#float#scroll(0,1) : ""
-    inoremap <nowait><expr> <m-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1,1)\<cr>" : ""
-    inoremap <nowait><expr> <m-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0,1)\<cr>" : ""
+    nnoremap <silent><nowait><expr> <m-j> coc#float#has_scroll() ? coc#float#scroll(1,1) : ""
+    nnoremap <silent><nowait><expr> <m-k> coc#float#has_scroll() ? coc#float#scroll(0,1) : ""
+    inoremap <silent><nowait><expr> <m-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1,1)\<cr>" : ""
+    inoremap <silent><nowait><expr> <m-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0,1)\<cr>" : ""
 
     " text objects
     xmap if <Plug>(coc-funcobj-i)
