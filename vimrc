@@ -68,6 +68,7 @@ set noshowcmd
 set title
 set scrolloff=5
 set updatetime=1000
+set signcolumn=yes
 
 autocmd BufNewFile,BufRead *.ll set ft=llvm
 autocmd BufWritePre * call TrimRight()
