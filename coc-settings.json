@@ -6,6 +6,12 @@
                 "vala",
                 "genie"
             ]
+        },
+        "slint": {
+            "command": "slint-lsp",
+            "filetypes": [
+                "slint"
+            ]
         }
     },
     "clangd.arguments": [

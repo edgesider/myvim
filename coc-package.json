@@ -8,16 +8,17 @@
     "coc-json": ">=1.4.0",
     "coc-kotlin": ">=0.0.7",
     "coc-lua": ">=1.0.1",
-    "coc-pyright": ">=1.1.194",
+    "coc-pyright": ">=1.1.336",
     "coc-sh": ">=0.6.1",
     "coc-svg": ">=0.0.13",
     "coc-tsserver": ">=1.9.4",
     "coc-vimlsp": ">=0.12.8",
     "coc-xml": ">=1.14.1",
     "coc-highlight": ">=2.0.4",
-    "coc-snippets": ">=3.1.4"
+    "coc-snippets": ">=3.1.4",
+    "coc-rust-analyzer": ">=0.75.2"
   },
   "disabled": [],
   "locked": [],
-  "lastUpdate": 1668421799760
+  "lastUpdate": 1700679203297
 }

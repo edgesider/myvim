@@ -10,3 +10,5 @@ autocmd FileType help if &buftype == 'help' | nnoremap <buffer> q :q<cr> | endif
 autocmd FileType fish set shiftwidth=2 | set tabstop=4
 autocmd BufNewFile,BufRead * if expand('%:t') == '.xprofile' | set ft=bash | endif
 autocmd BufNewFile,BufRead * if expand('%:p') =~ '.*waybar/config' | set ft=json5 | endif
+
+autocmd BufEnter *.slint :setlocal ft=slint
