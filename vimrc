@@ -3,6 +3,7 @@ source ~/.vim/space.vim
 source ~/.vim/theme.vim
 source ~/.vim/ft.vim
 source ~/.vim/gui.vim
+source ~/.vim/cmds.vim
 
 let g:plugins = {
             \ 'surround': 1,
