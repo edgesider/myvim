@@ -22,6 +22,7 @@
         "--completion-style=detailed",
         "--all-scopes-completion"
     ],
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
     "inlayHint.enable": false,
     "semanticTokens.enable": true,
     // "python.pythonPath": "/usr/local/bin/python3.10",
