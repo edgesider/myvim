@@ -134,6 +134,7 @@ nnoremap <silent> <leader>q :Leaderf quickfix<cr>
 
 nnoremap <c-s> :w<cr>
 nnoremap <silent> <f5> :call f5#Run()<cr>
+nnoremap <silent> <f4> :call f5#Run()<cr>
 tnoremap <silent> <c-w><f5> <c-w>:call f5#Run()<cr>
 
 " 窗口切换

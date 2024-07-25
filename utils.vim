@@ -131,7 +131,7 @@ function! Terminal_MetaMode(mode)
     if $TMUX != ''
         set ttimeoutlen=30
     elseif &ttimeoutlen > 80 || &ttimeoutlen <= 0
-        set ttimeoutlen=80
+        set ttimeoutlen=30
     endif
     if has('nvim') || has('gui_running')
         return
