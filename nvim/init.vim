@@ -25,7 +25,7 @@ set foldmethod=indent " 折叠方式
 set foldlevelstart=100 " 默认不折叠
 set colorcolumn=100  " 100个字符处划线
 set wildmenu wildmode=longest,full " Ex模式下Tab键补全窗口
-set clipboard=unnamed
+" set clipboard=unnamed
 " set completeopt=longest,menu
 set mouse=a
 " set ttymouse=sgr
@@ -128,4 +128,7 @@ if exists('g:vscode')
     nnoremap <silent> [e :call VSCodeCall('editor.action.marker.prev')<cr>
     nnoremap <silent> gu :call VSCodeCall('references-view.findReferences')<cr>
     nmap <silent> zx zCzo
+    nnoremap <silent> ]e :call VSCodeCall('editor.action.marker.next')<cr>
+    nnoremap <silent> [e :call VSCodeCall('editor.action.marker.prev')<cr>
+    nnoremap <silent> <a-p> :call VSCodeCall('editor.action.triggerParameterHints')<cr>
 endif
