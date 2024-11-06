@@ -126,5 +126,6 @@ if exists('g:vscode')
     nnoremap <silent> zO :call VSCodeCall('editor.unfoldRecursively')<cr>
     nnoremap <silent> ]e :call VSCodeCall('editor.action.marker.next')<cr>
     nnoremap <silent> [e :call VSCodeCall('editor.action.marker.prev')<cr>
+    nnoremap <silent> gu :call VSCodeCall('references-view.findReferences')<cr>
     nmap <silent> zx zCzo
 endif
